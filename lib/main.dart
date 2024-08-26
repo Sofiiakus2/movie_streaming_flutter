@@ -24,7 +24,6 @@ class MyApp extends StatelessWidget {
       theme: darkTheme,
       routes: {
         "/": (context) => const BottomNavBar(),
-        "/film": (context) => const FilmPage(),
       },
     );
   }

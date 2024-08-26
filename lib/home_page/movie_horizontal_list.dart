@@ -24,11 +24,15 @@ class MovieHorizontalList extends StatelessWidget {
         itemCount: movies.length,
         itemBuilder: (BuildContext context, int index) {
           return GestureDetector(
-            onTap: (){
-              if(movies[index].media_type == "movie"){
-               // Navigator.pushNamed(context, "/film");
+            onTap: () {
+              if (movies[index].media_type == "movie") {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => FilmPage(film: movies[index],)),
+                );
               }
             },
+
             child: Container(
               margin: const EdgeInsets.symmetric(horizontal: 10),
               width: 150,

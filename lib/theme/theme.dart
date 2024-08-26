@@ -25,6 +25,7 @@ final textTheme = TextTheme(
   titleMedium: GoogleFonts.montserrat(
     fontSize: 16,
     fontWeight: FontWeight.w600,
+      color: Colors.white54
   ),
   titleSmall: GoogleFonts.montserrat(
     fontSize: 16,
@@ -44,5 +45,11 @@ final textTheme = TextTheme(
       fontSize: 32,
       fontWeight: FontWeight.w600,
       color: Colors.white54
+  ),
+  bodyMedium: GoogleFonts.montserrat(
+      fontSize: 14,
+      fontWeight: FontWeight.w600,
+      color: Colors.white24,
+
   ),
 );

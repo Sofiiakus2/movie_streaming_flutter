@@ -8,7 +8,7 @@ class CarouselBanner extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
-    return Container(
+    return SizedBox(
       width: screenSize.width,
       height: screenSize.height / 3,
       child: CarouselSlider.builder(

@@ -18,6 +18,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     final List<MediaModel> selectedMovies = movies.sublist(5, 10);
+    final screenSize = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Color.alphaBlend(Colors.white.withOpacity(0.15), Theme.of(context).secondaryHeaderColor),
         appBar: AppBar(
@@ -42,25 +43,44 @@ class _HomePageState extends State<HomePage> {
           child: Column(
             children: [
               const CarouselBanner(),
-              Container(
-                margin: const EdgeInsets.only(top: 20, left: 20, right: 20, bottom: 10),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'Популярні',
-                      style: Theme.of(context).textTheme.titleMedium,
+              Stack(
+                children: [
+                  Container(
+                    width: screenSize.width,
+                    height: 70,
+                    decoration: const BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.bottomCenter,
+                        end: Alignment.topCenter,
+                        colors: [
+                          Colors.transparent,
+                          Color(0xFF1C1C1D)
+                        ],
+                        stops: [0.0, 1.0],
+                      ),
                     ),
-                    TextButton(
-                        onPressed: (){},
-                        child: Text(
-                          'Переглянути всі >',
-                          style: TextStyle(
-                            color: Theme.of(context).primaryColor
-                          ),
-                        ))
-                  ],
-                ),
+                  ),
+                  Container(
+                    margin: const EdgeInsets.only(top: 20, left: 20, right: 20, bottom: 10),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'Популярні',
+                          style: Theme.of(context).textTheme.titleMedium,
+                        ),
+                        TextButton(
+                            onPressed: (){},
+                            child: Text(
+                              'Переглянути всі >',
+                              style: TextStyle(
+                                color: Theme.of(context).primaryColor
+                              ),
+                            ))
+                      ],
+                    ),
+                  ),
+                ],
               ),
               MovieHorizontalList(movies: movies),
 
