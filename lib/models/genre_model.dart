@@ -12,6 +12,16 @@ class GenreModel{
     required this.meta_desc,
     required this.description,
 });
+
+  static String getGenreNames(List<String> genreIds) {
+    return genreIds.map((id) {
+      final genre = movieGenres.firstWhere(
+            (genre) => genre.id == id,
+        orElse: () => GenreModel(id: '0', name: 'Unknown', meta_title: '', meta_desc: '', description: ''),
+      );
+      return genre.name;
+    }).join(', ');
+  }
 }
 
 List<GenreModel> movieGenres = [

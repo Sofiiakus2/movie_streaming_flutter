@@ -1,9 +1,8 @@
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:movie_sctreaming/film_serial_pages/film_page/film_page.dart';
 
+import '../film_serial_pages/serial_page/serial_page.dart';
 import '../models/media_model.dart';
 
 class MovieHorizontalList extends StatelessWidget {
@@ -16,9 +15,8 @@ class MovieHorizontalList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: 250,
-     // margin: const EdgeInsets.only(left: 10),
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         itemCount: movies.length,
@@ -29,6 +27,12 @@ class MovieHorizontalList extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => FilmPage(film: movies[index],)),
+                );
+              }
+              else if (movies[index].media_type == "series") {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => SerialPage(serial: movies[index],)),
                 );
               }
             },
@@ -45,7 +49,7 @@ class MovieHorizontalList extends StatelessWidget {
                     margin: const EdgeInsets.only(bottom: 5),
                     decoration: BoxDecoration(
                       image: DecorationImage(
-                        image: NetworkImage(movies[index].poster_path), // Використання URL з вашого моделі
+                        image: NetworkImage(movies[index].poster_path),
                         fit: BoxFit.cover,
                       ),
                       borderRadius: BorderRadius.circular(8),
