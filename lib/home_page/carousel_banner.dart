@@ -1,6 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:movie_sctreaming/models/media_model.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CarouselBanner extends StatelessWidget {
   const CarouselBanner({super.key});
@@ -59,7 +60,7 @@ class CarouselBanner extends StatelessWidget {
                           size: 30,
                         ),
                         Text(
-                          'Відтворити',
+                          AppLocalizations.of(context)!.watch,
                           style: Theme.of(context).textTheme.titleSmall,
                         ),
                       ],

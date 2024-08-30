@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../models/media_model.dart';
 
@@ -11,12 +12,12 @@ class FavouritePage extends StatefulWidget {
 
 class _FavouritePageState extends State<FavouritePage> {
   int _selectedIndex = 0; // Індекс обраної категорії
-  final List<String> types = ["Переглянуті", "Збережені", "Завантажені"];
   final List<IconData> icons = [Icons.remove_red_eye, Icons.bookmark, Icons.download];
 
   @override
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
+    final List<String> types = [AppLocalizations.of(context)!.watched, AppLocalizations.of(context)!.saved];
 
     return Scaffold(
       backgroundColor: Color.alphaBlend(
@@ -30,7 +31,7 @@ class _FavouritePageState extends State<FavouritePage> {
               child: Row(
                 children: [
                   Text(
-                    'Бібліотека',
+                    AppLocalizations.of(context)!.library,
                     style: Theme.of(context).textTheme.displaySmall,
                   ),
                 ],
@@ -49,7 +50,7 @@ class _FavouritePageState extends State<FavouritePage> {
                   return GestureDetector(
                     onTap: () {
                       setState(() {
-                        _selectedIndex = index; // Оновлюємо вибраний індекс
+                        _selectedIndex = index;
                       });
                     },
                     child: Card(
@@ -63,7 +64,7 @@ class _FavouritePageState extends State<FavouritePage> {
                       color: isSelected
                           ? Theme.of(context).primaryColor
                           : Colors.transparent,
-                      margin: const EdgeInsets.symmetric(horizontal: 4),
+                      margin: const EdgeInsets.symmetric(horizontal: 8),
                       child: Container(
                         padding: const EdgeInsets.symmetric(
                             horizontal: 10, vertical: 5),
@@ -78,7 +79,7 @@ class _FavouritePageState extends State<FavouritePage> {
                                     Theme.of(context).secondaryHeaderColor)
                                     : Colors.white54,
                               ),
-                              SizedBox(width: 4),
+                              SizedBox(width: 10),
                               Text(
                                 types[index],
                                 style: TextStyle(

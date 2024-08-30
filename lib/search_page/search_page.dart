@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movie_sctreaming/models/genre_model.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../home_page/movie_horizontal_list.dart';
 import '../models/media_model.dart';
@@ -35,7 +36,14 @@ class _SearchPageState extends State<SearchPage> {
                       color: Theme.of(context).dialogBackgroundColor,
                       size: 30,
                     ),
-                    hintText: 'Пошук',
+                    suffixIcon: IconButton(
+                      icon: Icon(
+                        Icons.filter_alt,
+                        color: Theme.of(context).dialogBackgroundColor,
+                        size: 22,
+                      ), onPressed: () {  },
+                    ),
+                    hintText: AppLocalizations.of(context)!.search,
                     hintStyle: Theme.of(context).textTheme.titleSmall,
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(30),
@@ -106,7 +114,7 @@ class _SearchPageState extends State<SearchPage> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children:[
                         Text(
-                          'В тренді',
+                          AppLocalizations.of(context)!.popular_films,
                           style: Theme.of(context).textTheme.titleMedium,
                         ),
                       ]

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:movie_sctreaming/models/media_model.dart';
-
 import 'carousel_banner.dart';
 import 'movie_horizontal_list.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 
 class HomePage extends StatefulWidget {
@@ -21,24 +21,6 @@ class _HomePageState extends State<HomePage> {
     final screenSize = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Color.alphaBlend(Colors.white.withOpacity(0.15), Theme.of(context).secondaryHeaderColor),
-        appBar: AppBar(
-          backgroundColor: Theme.of(context).secondaryHeaderColor,
-          leading: Icon(
-            Icons.search,
-            color:  Theme.of(context).dialogBackgroundColor,
-            size: 30,
-          ),
-          actions: [
-            Container(
-              padding: const EdgeInsets.only(right: 10),
-              child: Icon(
-                Icons.account_circle_rounded,
-                color:  Theme.of(context).dialogBackgroundColor,
-                size: 34,
-              ),
-            ),
-          ],
-        ),
         body: SingleChildScrollView(
           child: Column(
             children: [
@@ -66,16 +48,21 @@ class _HomePageState extends State<HomePage> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          'Популярні',
+                          AppLocalizations.of(context)!.popular_films,
                           style: Theme.of(context).textTheme.titleMedium,
                         ),
                         TextButton(
                             onPressed: (){},
-                            child: Text(
-                              'Переглянути всі >',
-                              style: TextStyle(
-                                color: Theme.of(context).primaryColor
-                              ),
+                            child: Row(
+                              children: [
+                                Text(
+                                  AppLocalizations.of(context)!.view_all,
+                                  style: TextStyle(
+                                    color: Theme.of(context).primaryColor
+                                  ),
+                                ),
+                                Icon(Icons.navigate_next, color: Theme.of(context).primaryColor, size: 18,)
+                              ],
                             ))
                       ],
                     ),
@@ -90,16 +77,21 @@ class _HomePageState extends State<HomePage> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      'Найкращі',
+                      AppLocalizations.of(context)!.best_movies,
                       style: Theme.of(context).textTheme.titleMedium,
                     ),
                     TextButton(
                         onPressed: (){},
-                        child: Text(
-                          'Переглянути всі >',
-                          style: TextStyle(
-                              color: Theme.of(context).primaryColor
-                          ),
+                        child: Row(
+                          children: [
+                            Text(
+                              AppLocalizations.of(context)!.view_all,
+                              style: TextStyle(
+                                  color: Theme.of(context).primaryColor
+                              ),
+                            ),
+                            Icon(Icons.navigate_next, color: Theme.of(context).primaryColor, size: 18,)
+                          ],
                         ))
                   ],
                 ),

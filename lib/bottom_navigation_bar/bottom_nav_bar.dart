@@ -5,6 +5,7 @@ import "package:movie_sctreaming/home_page/home_page.dart";
 import "package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart";
 
 import "../favourite_page/favourite_page.dart";
+import "../profile_page/profile_page.dart";
 import "../search_page/search_page.dart";
 
 class BottomNavBar extends StatefulWidget {
@@ -28,7 +29,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
       const HomePage(),
       const SearchPage(),
       const FavouritePage(),
-      const Center(child: Text('Profile')),
+      const ProfilePage(),
     ];
   }
 
@@ -61,7 +62,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
       PersistentBottomNavBarItem(
         icon: Transform.translate(
           offset: const Offset(15, 0),
-          child: const Icon(Icons.settings),
+          child: const Icon(Icons.person_rounded),
         ),
         activeColorPrimary: Theme.of(context).primaryColor,
         inactiveColorPrimary: Colors.grey,

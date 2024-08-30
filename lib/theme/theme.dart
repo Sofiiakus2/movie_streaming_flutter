@@ -52,4 +52,9 @@ final textTheme = TextTheme(
       color: Colors.white24,
 
   ),
+  headlineSmall: GoogleFonts.montserrat(
+      fontSize: 16,
+      fontWeight: FontWeight.w400,
+      color: primaryColor
+  ),
 );

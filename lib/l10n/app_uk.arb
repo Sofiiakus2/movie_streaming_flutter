@@ -1,0 +1,53 @@
+{
+  "@@locale" : "uk",
+  "language" : "Українська",
+  "popular_films" : "Популярні",
+  "view_all": "Переглянути всі",
+  "best_movies": "Найкращі",
+  "watch": "Відтворити",
+  "save": "Зберегти",
+
+  "search": "Пошук",
+  "action": "Бойовик",
+  "comedy": "Комедія",
+  "drama": "Драма",
+  "horror": "Жахи",
+  "science_fiction": "Наукова фантастика",
+  "romance": "Романтика",
+  "triller": "Триллер",
+  "fantasy": "Фантастика",
+  "documentary": "Документальні",
+  "animation": "Анімації",
+
+  "library": "Бібліотека",
+  "watched": "Переглянуті",
+  "saved": "Збережені",
+
+  "settings": "Налаштування",
+  "statistics": "Статистика",
+  "rules_of_using": "Правила користування",
+  "sign_in": "Увійти",
+  "sign_out": "Вийти",
+  "log_in": "Зареєструватися",
+
+  "rating": "Рейтинг",
+  "votes": "Голосів",
+  "overview": "Опис",
+  "country": "Країна",
+  "studio": "Студія",
+  "quality": "Якість",
+  "translations": "Переклади",
+  "subtitles": "Субтитри",
+  "creators": "Режисери",
+  "actors": "Актори",
+  "similar": "Схожі",
+
+  "name": "Ім'я",
+  "password": "Пароль",
+  "email": "Email",
+  "confirm_password": "Підтвердіть пароль",
+  "already_have_an_account": "Вже є акаунт?",
+  "dont_have_an_account": "Ще не маєте акаунту?"
+
+
+}
