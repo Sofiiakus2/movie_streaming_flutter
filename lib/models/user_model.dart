@@ -2,11 +2,12 @@ import 'genre_model.dart';
 import 'media_model.dart';
 
 class UserModel {
-  final String id;
+  String? id;
   final String name;
   final String email;
-  final DateTime date_of_birth;
-  final String gender;
+  final String? password;
+  final DateTime? date_of_birth;
+  final String? gender;
   final String? profile_picture_url;
   final List<MediaModel>? watchlist;
   final List<MediaModel>? favourites;
@@ -14,16 +15,17 @@ class UserModel {
   final List<GenreModel>? preferences;
 
   UserModel({
-    required this.id,
+    this.id,
     required this.name,
     required this.email,
-    required this.date_of_birth,
-    required this.gender,
+    this.date_of_birth,
+    this.gender,
     this.profile_picture_url,
     this.watchlist,
     this.favourites,
     this.watch_story,
-    this.preferences
+    this.preferences,
+    this.password,
 });
 }
 

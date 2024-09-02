@@ -47,5 +47,12 @@
   "email": "Email",
   "confirm_password": "Confirm password",
   "already_have_an_account": "Already have an account?",
-  "dont_have_an_account": "Don't have an account?"
+  "dont_have_an_account": "Don't have an account?",
+
+  "enterName": "Enter name",
+  "uncorrectData": "Uncorrect data",
+  "notLessThan6Symbols": "Password shouldn't have less than 6 symbols",
+  "passwordIsNotConfirm": "Password isn't confirm",
+  "enterPassword": "Enter password",
+  "enterEmail": "Enter email"
 }

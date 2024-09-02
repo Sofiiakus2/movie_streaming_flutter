@@ -26,9 +26,9 @@
   "settings": "Налаштування",
   "statistics": "Статистика",
   "rules_of_using": "Правила користування",
-  "sign_in": "Увійти",
+  "sign_in": "Зареєструватися",
   "sign_out": "Вийти",
-  "log_in": "Зареєструватися",
+  "log_in": "Увійти",
 
   "rating": "Рейтинг",
   "votes": "Голосів",
@@ -47,7 +47,12 @@
   "email": "Email",
   "confirm_password": "Підтвердіть пароль",
   "already_have_an_account": "Вже є акаунт?",
-  "dont_have_an_account": "Ще не маєте акаунту?"
+  "dont_have_an_account": "Ще не маєте акаунту?",
 
-
+  "enterName": "Введіть ім'я",
+  "uncorrectData": "Некоректні дані",
+  "notLessThan6Symbols": "Не менше 6 символів",
+  "passwordIsNotConfirm": "Паролі не збігаються",
+  "enterPassword": "Введіть пароль",
+  "enterEmail": "Введіть email"
 }
