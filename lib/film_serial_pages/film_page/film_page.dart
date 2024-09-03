@@ -4,6 +4,7 @@ import 'package:movie_sctreaming/models/media_model.dart';
 
 import '../../home_page/movie_horizontal_list.dart';
 import '../../models/genre_model.dart';
+import '../../services/media_service.dart';
 import 'details/film_info.dart';
 import 'details/film_promo_info.dart';
 
@@ -107,7 +108,8 @@ class _FilmPageState extends State<FilmPage> with SingleTickerProviderStateMixin
                           style: Theme.of(context).textTheme.titleMedium,
                         ),
                       ),
-                      MovieHorizontalList(movies: movies),
+                      MovieHorizontalList(fetchMovies: MediaService.getMoviesFromDB()),
+
                     ],
                   )
               ),

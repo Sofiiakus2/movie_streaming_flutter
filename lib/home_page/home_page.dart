@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movie_sctreaming/models/media_model.dart';
+import 'package:movie_sctreaming/services/media_service.dart';
 import 'carousel_banner.dart';
 import 'movie_horizontal_list.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -17,8 +18,8 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    final List<MediaModel> selectedMovies = movies.sublist(5, 10);
     final screenSize = MediaQuery.of(context).size;
+
     return Scaffold(
       backgroundColor: Color.alphaBlend(Colors.white.withOpacity(0.15), Theme.of(context).secondaryHeaderColor),
         body: SingleChildScrollView(
@@ -69,7 +70,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ],
               ),
-              MovieHorizontalList(movies: movies),
+              MovieHorizontalList(fetchMovies: MediaService.getMoviesFromDB()),
 
               Container(
                 margin: const EdgeInsets.only(top: 20, left: 20, right: 20, bottom: 10),
@@ -96,8 +97,7 @@ class _HomePageState extends State<HomePage> {
                   ],
                 ),
               ),
-              MovieHorizontalList(movies: selectedMovies),
-          
+
           
             ],
           ),

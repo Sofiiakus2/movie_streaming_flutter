@@ -13,6 +13,16 @@ class StudioModel{
     required this.location,
     required this.media,
 });
+
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'name': name,
+      'description': description,
+      'location': location,
+      'media': media,
+    };
+  }
 }
 
 List<StudioModel> studios = [

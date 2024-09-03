@@ -13,6 +13,16 @@ class GenreModel{
     required this.description,
 });
 
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'name': name,
+      'meta_title': meta_title,
+      'meta_desc': meta_desc,
+      'description': description,
+    };
+  }
+
   static String getGenreNames(List<String> genreIds) {
     return genreIds.map((id) {
       final genre = movieGenres.firstWhere(

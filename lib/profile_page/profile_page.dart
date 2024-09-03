@@ -19,9 +19,10 @@ class ProfilePage extends StatelessWidget {
         future: ProfileService.getMainPersonalInfo(),
         builder: (context, snapshot) {
           if(snapshot.hasError){
-            return Container(
-              child: Text('Неможливо завантажити дані'),
-            );
+            return const Text('Неможливо завантажити дані');
+          }
+          if(snapshot.connectionState == ConnectionState.waiting){
+            return const CircularProgressIndicator();
           }
           UserModel? user = snapshot!.data;
           return Container(

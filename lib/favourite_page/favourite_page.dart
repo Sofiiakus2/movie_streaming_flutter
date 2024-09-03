@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../models/media_model.dart';
+import '../services/media_service.dart';
+import 'movies_grid_view.dart';
 
 class FavouritePage extends StatefulWidget {
   const FavouritePage({super.key});
@@ -11,7 +13,7 @@ class FavouritePage extends StatefulWidget {
 }
 
 class _FavouritePageState extends State<FavouritePage> {
-  int _selectedIndex = 0; // Індекс обраної категорії
+  int _selectedIndex = 0;
   final List<IconData> icons = [Icons.remove_red_eye, Icons.bookmark, Icons.download];
 
   @override
@@ -113,44 +115,7 @@ class _FavouritePageState extends State<FavouritePage> {
                 ],
               ),
             ),
-            Expanded(
-              child: GridView.builder(
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 3,
-                    crossAxisSpacing: 8.0,
-                    mainAxisSpacing: 8.0,
-                    childAspectRatio: 0.5,
-                  ),
-                  itemCount: movies.length,
-                  itemBuilder: (BuildContext context, int index){
-                    return Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-
-                        Container(
-                          width: 150,
-                          height: 199,
-                          margin: const EdgeInsets.only(bottom: 5),
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                              image: NetworkImage(movies[index].poster_path), // Використання URL з вашого моделі
-                              fit: BoxFit.cover,
-                            ),
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                        ),
-                        Text(
-                          movies[index].title,
-                          style: Theme.of(context).textTheme.titleSmall,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          softWrap: true,
-                        ),
-                      ],
-                    );
-                  }
-              ),
-            ),
+            MoviesGridView(fetchMovies: MediaService.getMoviesFromDB()),
 
           ],
         ),

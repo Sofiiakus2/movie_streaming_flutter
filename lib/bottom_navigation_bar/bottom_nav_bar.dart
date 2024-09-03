@@ -2,11 +2,19 @@ import "dart:ui";
 
 import "package:flutter/material.dart";
 import "package:movie_sctreaming/home_page/home_page.dart";
+import "package:movie_sctreaming/services/genre_service.dart";
+import "package:movie_sctreaming/services/people_service.dart";
 import "package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart";
 
 import "../favourite_page/favourite_page.dart";
+import "../models/genre_model.dart";
+import "../models/media_model.dart";
+import "../models/people_model.dart";
+import "../models/studio_model.dart";
 import "../profile_page/profile_page.dart";
 import "../search_page/search_page.dart";
+import "../services/media_service.dart";
+import "../services/studio_service.dart";
 
 class BottomNavBar extends StatefulWidget {
   const BottomNavBar({super.key});
@@ -95,7 +103,13 @@ class _BottomNavBarState extends State<BottomNavBar> {
             ),
           ),
           FloatingActionButton(
-            onPressed: () {},
+            onPressed: () async{
+              //await MediaService.saveMoviesToFirestore(movies);
+              //await StudioService.saveStudiosToDB(studios);
+              //await GenreService.saveGenresToDB(movieGenres);
+              await PeopleService.savePeopleToDB(actors);
+              await PeopleService.savePeopleToDB(creators);
+            },
             backgroundColor: Theme.of(context).primaryColor,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(50.0),

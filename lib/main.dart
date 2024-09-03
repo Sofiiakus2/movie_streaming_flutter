@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:movie_sctreaming/autorization/sign_in_page/sign_in_page.dart';
+import 'package:movie_sctreaming/splash/splash_screen.dart';
 import 'package:movie_sctreaming/theme/theme.dart';
 
 import 'autorization/log_in_page/log_in_page.dart';
@@ -37,7 +38,10 @@ class MyApp extends StatelessWidget {
       title: 'Movie Streaming',
       theme: darkTheme,
       routes: {
-        "/": (context) => const LogInPage(),//BottomNavBar(),
+        "/":(context)=>const SplashScreen(),
+        "/login": (context) => const LogInPage(),
+        "/bottomNavBar":(context)=> const BottomNavBar(),
+
       },
 
       localizationsDelegates: const [

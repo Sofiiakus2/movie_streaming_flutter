@@ -21,6 +21,21 @@ class People{
     required this.films,
     required this.type,
 });
+
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'name': name,
+      'meta_title': meta_title,
+      'meta_desc': meta_desc,
+      'poster_url': poster_url,
+      'biography': biography,
+      'gender': gender,
+      'films': films,
+      'type': type,
+    };
+  }
+
 }
 
 List<People> actors = [
@@ -83,7 +98,7 @@ List<People> actors = [
 
 List<People> creators = [
   People(
-  id: 'director1',
+  id: '6',
   name: 'Christopher Nolan',
   meta_title: 'Christopher Nolan - Renowned Director',
   meta_desc: 'Christopher Nolan is a British-American filmmaker known for his complex narratives and innovative visual storytelling.',

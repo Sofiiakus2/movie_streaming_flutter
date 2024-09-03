@@ -4,6 +4,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../home_page/movie_horizontal_list.dart';
 import '../models/media_model.dart';
+import '../services/media_service.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({super.key});
@@ -124,7 +125,7 @@ class _SearchPageState extends State<SearchPage> {
             ),
           ),
 
-          MovieHorizontalList(movies: movies),
+          MovieHorizontalList(fetchMovies: MediaService.getMoviesFromDB()),
 
         ],
       ),

@@ -26,4 +26,34 @@ class SeasonModel{
     required this.series,
 });
 
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'name': name,
+      'meta_title': meta_title,
+      'meta_desc': meta_desc,
+      'overview': overview,
+      'series_count': series_count,
+      'general_duration': general_duration,
+      'poster_url': poster_url,
+      'status': status,
+      'series': series.map((s) => s.toMap()).toList(),
+    };
+  }
+
+  factory SeasonModel.fromMap(Map<String, dynamic> map) {
+    return SeasonModel(
+      id: map['id'],
+      name: map['name'],
+      meta_title: map['meta_title'],
+      meta_desc: map['meta_desc'],
+      overview: map['overview'],
+      series_count: map['series_count'],
+      general_duration: map['general_duration'],
+      poster_url: map['poster_url'],
+      status: map['status'],
+      series: (map['series'] as List).map((s) => SeriesModel.fromMap(s)).toList(),
+    );
+  }
+
 }
