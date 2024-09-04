@@ -10,7 +10,6 @@ class UserModel {
   final String? gender;
   final String? profile_picture_url;
   final List<MediaModel>? watchlist;
-  final List<MediaModel>? favourites;
   final List<MediaModel>? watch_story;
   final List<GenreModel>? preferences;
 
@@ -22,7 +21,6 @@ class UserModel {
     this.gender,
     this.profile_picture_url,
     this.watchlist,
-    this.favourites,
     this.watch_story,
     this.preferences,
     this.password,

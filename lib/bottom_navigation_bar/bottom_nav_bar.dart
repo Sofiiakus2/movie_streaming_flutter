@@ -107,8 +107,8 @@ class _BottomNavBarState extends State<BottomNavBar> {
               //await MediaService.saveMoviesToFirestore(movies);
               //await StudioService.saveStudiosToDB(studios);
               //await GenreService.saveGenresToDB(movieGenres);
-              await PeopleService.savePeopleToDB(actors);
-              await PeopleService.savePeopleToDB(creators);
+              // await PeopleService.savePeopleToDB(actors);
+              // await PeopleService.savePeopleToDB(creators);
             },
             backgroundColor: Theme.of(context).primaryColor,
             shape: RoundedRectangleBorder(

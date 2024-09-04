@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../models/genre_model.dart';
+import '../../../services/user_service.dart';
 import '../serial_page.dart';
 
 class SerialPromoInfo extends StatelessWidget {
@@ -108,7 +109,7 @@ class SerialPromoInfo extends StatelessWidget {
                         height: 45,
                         child: ElevatedButton(
                           onPressed: () {
-                            // Add functionality here
+                            UserService.addToWatchlist(widget.serial);
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Theme.of(context).dialogBackgroundColor,

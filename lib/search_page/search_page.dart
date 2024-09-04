@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:movie_sctreaming/favourite_page/movies_grid_view.dart';
 import 'package:movie_sctreaming/models/genre_model.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:movie_sctreaming/services/genre_service.dart';
 
 import '../home_page/movie_horizontal_list.dart';
 import '../models/media_model.dart';
+import '../services/filters_service.dart';
 import '../services/media_service.dart';
+import 'filters_dialog.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({super.key});
@@ -15,6 +19,20 @@ class SearchPage extends StatefulWidget {
 
 class _SearchPageState extends State<SearchPage> {
   final Set<String> _selectedGenres = {};
+  late Future<List<MediaModel>> _moviesFuture;
+  TextEditingController searchController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    _moviesFuture = FiltersService.getMoviesFromDBWithFilters();
+  }
+
+  void _onGenreSelected() {
+    setState(() {
+      _moviesFuture = FiltersService.getMoviesFromDBWithFilters(genres: _selectedGenres, title: searchController.text);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,107 +43,134 @@ class _SearchPageState extends State<SearchPage> {
       body: Column(
         children: [
           Container(
-            margin: const EdgeInsets.only(top: 30, left: 20, right: 20),
+            margin: const EdgeInsets.only(top: 30, left: 20, right: 0),
             child: Column(
               children: [
-                TextField(
-                  decoration: InputDecoration(
-                    filled: true,
-                    fillColor: Theme.of(context).dividerColor,
-                    prefixIcon: Icon(
-                      Icons.search,
-                      color: Theme.of(context).dialogBackgroundColor,
-                      size: 30,
-                    ),
-                    suffixIcon: IconButton(
-                      icon: Icon(
-                        Icons.filter_alt,
-                        color: Theme.of(context).dialogBackgroundColor,
-                        size: 22,
-                      ), onPressed: () {  },
-                    ),
-                    hintText: AppLocalizations.of(context)!.search,
-                    hintStyle: Theme.of(context).textTheme.titleSmall,
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(30),
-                      borderSide: BorderSide.none,
-                    ),
-                    contentPadding: EdgeInsets.symmetric(vertical: 15),
-                  ),
-                  style: const TextStyle(color: Colors.white),
-                ),
                 Container(
-                  height: 50,
-                  width: screenSize.width,
-                  margin: const EdgeInsets.only(top: 15, bottom: 15),
-                  child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: movieGenres.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      final genre = movieGenres[index];
-                      final isSelected = _selectedGenres.contains(genre.id);
-
-                      return GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            if (isSelected) {
-                              _selectedGenres.remove(genre.id);
-                            } else {
-                              _selectedGenres.add(genre.id);
-                            }
-                          });
-                        },
-                        child: Card(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(35),
-                            side: BorderSide(
-                              color: Theme.of(context).primaryColor,
-                              width: 2.0,
-                            ),
-                          ),
-                          color: isSelected
-                              ? Theme.of(context).primaryColor
-                              : Colors.transparent,
-                          margin: const EdgeInsets.symmetric(horizontal: 4),
-                          child: Container(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 20, vertical: 10),
-                            child: Center(
-                              child: Text(
-                                genre.name,
-                                style: TextStyle(
-                                  color: isSelected
-                                      ? Color.alphaBlend( Colors.white.withOpacity(0.15), Theme.of(context).secondaryHeaderColor)
-                                      : Colors.white54,
-                                  fontWeight: isSelected
-                                      ? FontWeight.w900
-                                      : FontWeight.w400,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      );
+                  margin: const EdgeInsets.only(right: 20,),
+                  child: TextField(
+                    controller: searchController,
+                    decoration: InputDecoration(
+                      filled: true,
+                      fillColor: Theme.of(context).dividerColor,
+                      prefixIcon: Icon(
+                        Icons.search,
+                        color: Theme.of(context).dialogBackgroundColor,
+                        size: 30,
+                      ),
+                      suffixIcon: IconButton(
+                        icon: Icon(
+                          Icons.filter_alt,
+                          color: Theme.of(context).dialogBackgroundColor,
+                          size: 22,
+                        ), onPressed: () {
+                          showDialog(
+                              context: context,
+                              builder: (context){
+                                return const FiltersDialog();
+                              });
+                      },
+                      ),
+                      hintText: AppLocalizations.of(context)!.search,
+                      hintStyle: Theme.of(context).textTheme.titleSmall,
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(30),
+                        borderSide: BorderSide.none,
+                      ),
+                      contentPadding: EdgeInsets.symmetric(vertical: 15),
+                    ),
+                    style: const TextStyle(color: Colors.white),
+                    onChanged: (value){
+                      _onGenreSelected();
                     },
                   ),
                 ),
-                Container(
-                  margin: EdgeInsets.only(bottom: 15, left: 10),
-                  child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children:[
-                        Text(
-                          AppLocalizations.of(context)!.popular_films,
-                          style: Theme.of(context).textTheme.titleMedium,
-                        ),
-                      ]
-                  ),
+                FutureBuilder<List<GenreModel>>(
+                  future: GenreService.getGenresFromDB(),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const Center(child: CircularProgressIndicator());
+                    } else if (snapshot.hasError) {
+                      return Center(child: Text('Error: ${snapshot.error}'));
+                    } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                      return const Center(child: Text('Error.'));
+                    }
+                    final genres = snapshot.data!;
+                    return Container(
+                      height: 50,
+                      width: screenSize.width,
+                      margin: const EdgeInsets.only(top: 15, bottom: 15),
+                      child: ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: genres.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          final genre = genres[index];
+                          final isSelected = _selectedGenres.contains(genre.id);
+
+                          return GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                if (isSelected) {
+                                  _selectedGenres.remove(genre.id);
+                                } else {
+                                  _selectedGenres.add(genre.id);
+                                }
+                              });
+                              _onGenreSelected();
+                            },
+                            child: Card(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(35),
+                                side: BorderSide(
+                                  color: Theme.of(context).primaryColor,
+                                  width: 2.0,
+                                ),
+                              ),
+                              color: isSelected
+                                  ? Theme.of(context).primaryColor
+                                  : Colors.transparent,
+                              margin: const EdgeInsets.symmetric(horizontal: 4),
+                              child: Container(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 20, vertical: 10),
+                                child: Center(
+                                  child: Text(
+                                    genre.name,
+                                    style: TextStyle(
+                                      color: isSelected
+                                          ? Color.alphaBlend( Colors.white.withOpacity(0.15), Theme.of(context).secondaryHeaderColor)
+                                          : Colors.white54,
+                                      fontWeight: isSelected
+                                          ? FontWeight.w900
+                                          : FontWeight.w400,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                    );
+                  }
                 ),
+                // Container(
+                //   margin: EdgeInsets.only(bottom: 15, left: 10),
+                //   child: Row(
+                //       mainAxisAlignment: MainAxisAlignment.start,
+                //       children:[
+                //         Text(
+                //           AppLocalizations.of(context)!.popular_films,
+                //           style: Theme.of(context).textTheme.titleMedium,
+                //         ),
+                //       ]
+                //   ),
+                // ),
               ],
             ),
           ),
-
-          MovieHorizontalList(fetchMovies: MediaService.getMoviesFromDB()),
+          MoviesGridView(fetchMovies: _moviesFuture),
+       //   MovieHorizontalList(fetchMovies: MediaService.getMoviesFromDB()),
 
         ],
       ),

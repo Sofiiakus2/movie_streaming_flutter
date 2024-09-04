@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:movie_sctreaming/services/user_service.dart';
 
 import '../../../models/genre_model.dart';
 import '../film_page.dart';
@@ -119,7 +120,7 @@ class FilmPromoInfo extends StatelessWidget {
                         height: 45,
                         child: ElevatedButton(
                           onPressed: () {
-                            // Add functionality here
+                            UserService.addToWatchlist(widget.film);
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Theme.of(context).dialogBackgroundColor,

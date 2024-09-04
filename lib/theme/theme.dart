@@ -52,6 +52,18 @@ final textTheme = TextTheme(
       color: Colors.white24,
 
   ),
+  bodySmall: GoogleFonts.montserrat(
+    fontSize: 16,
+    fontWeight: FontWeight.w600,
+    color: secondaryColor,
+
+  ),
+  labelMedium: GoogleFonts.montserrat(
+    fontSize: 16,
+    fontWeight: FontWeight.w600,
+    color: dividerColor,
+
+  ),
   headlineSmall: GoogleFonts.montserrat(
       fontSize: 16,
       fontWeight: FontWeight.w400,
