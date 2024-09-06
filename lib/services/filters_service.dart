@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../models/media_model.dart';
 
@@ -18,7 +19,6 @@ class FiltersService{
         }
       }
 
-      print(countries);
       return countries.toList();
     } catch (e) {
       print('Error fetching countries: $e');
@@ -30,16 +30,13 @@ class FiltersService{
     try {
       QuerySnapshot querySnapshot = await _firestore.collection('movies').get();
 
-      // Ініціалізувати множину для зберігання унікальних років
       Set<int> years = {};
 
-      // Проходити через всі документи і зберігати значення 'release_date' в множину
       for (var doc in querySnapshot.docs) {
         var data = doc.data() as Map<String, dynamic>;
         if (data.containsKey('release_date') && data['release_date'] is String) {
           String releaseDateString = data['release_date'] as String;
 
-          // Спробувати парсити рядок дати і витягти рік
           try {
             DateTime releaseDate = DateTime.parse(releaseDateString);
             years.add(releaseDate.year);
@@ -49,8 +46,7 @@ class FiltersService{
         }
       }
 
-      // Перетворити множину в список і повернути його
-      return years.toList()..sort(); // Сортувати за зростанням
+      return years.toList()..sort();
     } catch (e) {
       print('Error fetching years: $e');
       return [];
@@ -60,6 +56,8 @@ class FiltersService{
   static Future<List<MediaModel>> getMoviesFromDBWithFilters({
     Set<String>? genres,
     String? title,
+    List<String>? countries,
+    List<int>? years,
   }) async {
     Query query = _firestore.collection('movies');
 
@@ -75,14 +73,29 @@ class FiltersService{
           .endAt([lowerCaseTitle + '\uf8ff']);
     }
 
+    if (countries != null && countries.isNotEmpty) {
+      query = query.where('country', whereIn: countries);
+    }
+
     QuerySnapshot querySnapshot = await query.get();
 
     List<MediaModel> movies = querySnapshot.docs.map((doc) {
       return MediaModel.fromMap(doc.data() as Map<String, dynamic>);
     }).toList();
 
+    if (years != null && years.isNotEmpty) {
+      print('Filtering movies by years: $years');
+      movies = movies.where((movie) {
+        print('Movie release year: ${movie.release_date.year}');
+        return years.contains(movie.release_date.year);
+      }).toList();
+    }
+
+
+
     return movies;
   }
+
 
 
 }

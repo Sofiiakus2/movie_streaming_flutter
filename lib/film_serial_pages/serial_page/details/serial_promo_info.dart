@@ -102,39 +102,56 @@ class SerialPromoInfo extends StatelessWidget {
                 ),
                 Container(
                   margin: const EdgeInsets.symmetric(vertical: 15),
-                  child: Row(
-                    children: [
-                      SizedBox(
-                        width: 160,
-                        height: 45,
-                        child: ElevatedButton(
-                          onPressed: () {
-                            UserService.addToWatchlist(widget.serial);
-                          },
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Theme.of(context).dialogBackgroundColor,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(5),
+                  child: FutureBuilder<bool>(
+                      future: UserService.isInWatchlist(widget.serial.id),
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState == ConnectionState.waiting) {
+                          return CircularProgressIndicator();
+                        } else if (snapshot.hasError) {
+                          return Icon(Icons.error, color: Colors.red);
+                        }
+                        bool isInWatchlist = snapshot.data ?? false;
+                        return Row(
+                          children: [
+                            SizedBox(
+                              width: 160,
+                              height: 45,
+                              child: ElevatedButton(
+                                onPressed: () {
+                                  if(isInWatchlist){
+                                    UserService.removeFromWatchlist(widget.serial);
+                                  }else{
+                                    UserService.addToWatchlist(widget.serial);
+                                  }
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: Theme.of(context).dialogBackgroundColor,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(5),
+                                  ),
+                                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                                ),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Icon(
+                                      isInWatchlist ? Icons.remove_circle_outline : Icons.add_circle_outline,
+                                      color: Colors.white,
+                                      size: 30,
+                                    ),
+                                    Text(
+                                      isInWatchlist
+                                          ? 'Видалити'
+                                          : 'Зберегти',
+                                      style: Theme.of(context).textTheme.titleSmall,
+                                    ),
+                                  ],
+                                ),
+                              ),
                             ),
-                            padding: const EdgeInsets.symmetric(horizontal: 10),
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              const Icon(
-                                Icons.add_circle_outline,
-                                color: Colors.white,
-                                size: 30,
-                              ),
-                              Text(
-                                'Зберегти',
-                                style: Theme.of(context).textTheme.titleSmall,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
+                          ],
+                        );
+                      }
                   ),
                 )
               ],

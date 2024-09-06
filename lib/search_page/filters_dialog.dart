@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movie_sctreaming/services/filters_service.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class FiltersDialog extends StatefulWidget {
   const FiltersDialog({super.key});
@@ -10,37 +11,48 @@ class FiltersDialog extends StatefulWidget {
 
 class _FiltersDialogState extends State<FiltersDialog> {
   List<String> _countries = [];
-  Set<String> _selectedCountries = {};
+  final Set<String> _selectedCountries = {};
   List<int> _years = [];
-  Set<int> _selectedYears = {};
+  final Set<int> _selectedYears = {};
 
   @override
   void initState() {
     super.initState();
-    _load();
+    _loadFilters();
   }
 
-  Future<void> _load() async {
+  Future<void> _loadFilters() async {
     try {
       List<String> countries = await FiltersService.getCountriesFromMovies();
       List<int> years = await FiltersService.getYearsFromMovies();
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      List<String> savedCountries = prefs.getStringList('selectedCountries') ?? [];
+      List<int> savedYears = prefs.getStringList('selectedYears')?.map((e) => int.parse(e)).toList() ?? [];
 
       setState(() {
         _countries = countries;
         _years = years;
+        _selectedCountries.addAll(savedCountries);
+        _selectedYears.addAll(savedYears);
       });
     } catch (e) {
-      print('Error loading countries: $e');
+      print('Error loading filters: $e');
     }
+  }
+
+  Future<void> _saveFilters() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setStringList('selectedCountries', _selectedCountries.toList());
+    await prefs.setStringList('selectedYears', _selectedYears.map((e) => e.toString()).toList());
   }
 
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: Text('Фільтри'),
+      title: const Text('Фільтри'),
       titleTextStyle: Theme.of(context).textTheme.titleLarge,
       content: _countries.isEmpty
-          ? Center(child: CircularProgressIndicator())
+          ? const Center(child: CircularProgressIndicator())
           : SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -69,7 +81,7 @@ class _FiltersDialogState extends State<FiltersDialog> {
                 activeColor: Theme.of(context).primaryColor,
                 checkColor: Colors.white,
               );
-            }).toList(),
+            }),
             Text(
               'Рік',
               style: Theme.of(context).textTheme.titleMedium,
@@ -93,13 +105,14 @@ class _FiltersDialogState extends State<FiltersDialog> {
                 activeColor: Theme.of(context).primaryColor,
                 checkColor: Colors.white,
               );
-            }).toList(),
+            }),
           ],
         ),
       ),
       actions: [
         TextButton(
-          onPressed: () {
+          onPressed: () async {
+            await _saveFilters();
             Navigator.of(context).pop({
               'selectedCountries': _selectedCountries.toList(),
               'selectedYears': _selectedYears.toList(),

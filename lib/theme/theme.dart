@@ -19,7 +19,17 @@ final darkTheme = ThemeData(
       seedColor: primaryColor,
       brightness: Brightness.dark,
     ),
+  bottomNavigationBarTheme: BottomNavigationBarThemeData(
+    backgroundColor: dividerColor,
+    selectedItemColor: primaryColor,
+    unselectedItemColor: Colors.grey,
+    showSelectedLabels: false,
+    showUnselectedLabels: false,
+    elevation: 8,
+    type: BottomNavigationBarType.fixed,
+  ),
 );
+
 
 final textTheme = TextTheme(
   titleMedium: GoogleFonts.montserrat(
@@ -53,7 +63,7 @@ final textTheme = TextTheme(
 
   ),
   bodySmall: GoogleFonts.montserrat(
-    fontSize: 16,
+    fontSize: 14,
     fontWeight: FontWeight.w600,
     color: secondaryColor,
 

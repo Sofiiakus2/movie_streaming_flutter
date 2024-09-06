@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:movie_sctreaming/models/media_model.dart';
 
+import '../../bottom_navigation_bar/bottom_nav_bar.dart';
 import '../../home_page/movie_horizontal_list.dart';
 import '../../models/genre_model.dart';
 import '../../services/media_service.dart';
@@ -115,7 +116,8 @@ class _FilmPageState extends State<FilmPage> with SingleTickerProviderStateMixin
               ),
             ],
           ),
-        )
+        ),
+
     );
   }
 }

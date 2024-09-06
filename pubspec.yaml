@@ -29,6 +29,8 @@ dependencies:
   firebase_auth: ^4.16.0
   cloud_firestore: ^4.14.0
   shared_preferences: ^2.3.2
+  youtube_player_flutter: ^9.0.3
+  flutter_inappwebview: ^6.0.0
 
 
 dev_dependencies:

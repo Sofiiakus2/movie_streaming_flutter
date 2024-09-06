@@ -19,6 +19,8 @@ class SearchPage extends StatefulWidget {
 
 class _SearchPageState extends State<SearchPage> {
   final Set<String> _selectedGenres = {};
+  List<String> selectedCountries =  [];
+  List<int> selectedYears =  [];
   late Future<List<MediaModel>> _moviesFuture;
   TextEditingController searchController = TextEditingController();
 
@@ -30,7 +32,7 @@ class _SearchPageState extends State<SearchPage> {
 
   void _onGenreSelected() {
     setState(() {
-      _moviesFuture = FiltersService.getMoviesFromDBWithFilters(genres: _selectedGenres, title: searchController.text);
+      _moviesFuture = FiltersService.getMoviesFromDBWithFilters(genres: _selectedGenres, title: searchController.text, countries: selectedCountries, years: selectedYears);
     });
   }
 
@@ -63,12 +65,18 @@ class _SearchPageState extends State<SearchPage> {
                           Icons.filter_alt,
                           color: Theme.of(context).dialogBackgroundColor,
                           size: 22,
-                        ), onPressed: () {
-                          showDialog(
-                              context: context,
-                              builder: (context){
-                                return const FiltersDialog();
-                              });
+                        ), onPressed: () async{
+                        final result = await showDialog(
+                          context: context,
+                          builder: (context) {
+                            return const FiltersDialog();
+                          },
+                        );
+                        if (result != null) {
+                           selectedCountries = result['selectedCountries'] ?? [];
+                           selectedYears = result['selectedYears'] ?? [];
+                           _onGenreSelected();
+                        }
                       },
                       ),
                       hintText: AppLocalizations.of(context)!.search,
