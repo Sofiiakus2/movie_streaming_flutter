@@ -1,19 +1,83 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 import '../models/genre_model.dart';
 
 class GenreService{
   static final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  static final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  static Future<void> saveGenresToDB(List<GenreModel> genres) async {
+  static Future<void> saveGenresToUserPreferences(String userId, List<GenreModel> genres) async {
     try {
-      for (GenreModel genre in genres) {
-        await _firestore.collection('genres').doc(genre.id).set(genre.toMap());
-      }
+      List<Map<String, dynamic>> genreMaps = genres.map((genre) => genre.toMap()).toList();
+
+      await _firestore.collection('users').doc(userId).update({
+        'preferences': genreMaps,
+      });
+
+      print('Genres successfully saved to user preferences.');
     } catch (e) {
-      print('Error saving genres to Firestore: $e');
+      print('Error saving genres to user preferences: $e');
     }
   }
+
+  static Future<void> saveGenresToCurrentUser(List<GenreModel> genres) async {
+    try {
+      User? currentUser = _auth.currentUser;
+      if (currentUser == null) {
+        return;
+      }
+
+      String userId = currentUser.uid;
+      List<Map<String, dynamic>> genreMaps = genres.map((genre) => genre.toMap()).toList();
+
+      await _firestore.collection('users').doc(userId).update({
+        'preferences': genreMaps,
+      });
+
+    } catch (e) {
+      print('Error saving genres to user preferences: $e');
+    }
+  }
+
+  static Future<List<GenreModel>> getGenresFromCurrentUser() async {
+    try {
+      User? currentUser = _auth.currentUser;
+      if (currentUser == null) {
+        return [];
+      }
+
+      String userId = currentUser.uid;
+      DocumentSnapshot userDoc = await _firestore.collection('users').doc(userId).get();
+
+      if (userDoc.exists && userDoc.data() != null) {
+        Map<String, dynamic> userData = userDoc.data() as Map<String, dynamic>;
+
+        if (userData.containsKey('preferences')) {
+          List<dynamic> genreMaps = userData['preferences'];
+
+          // Перетворюємо список Map у список GenreModel
+          List<GenreModel> genres = genreMaps.map((genreData) {
+            return GenreModel(
+              id: genreData['id'],
+              name: genreData['name'],
+              meta_title: genreData['meta_title'],
+              meta_desc: genreData['meta_desc'],
+              description: genreData['description'],
+            );
+          }).toList();
+
+          return genres;
+        }
+      }
+
+      return []; // Якщо жанрів немає або документ не існує, повертаємо порожній список.
+    } catch (e) {
+      print('Error getting genres from user preferences: $e');
+      return [];
+    }
+  }
+
 
   static Future<List<GenreModel>> getGenresFromDB() async {
     try {

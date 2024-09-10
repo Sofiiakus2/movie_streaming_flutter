@@ -54,5 +54,20 @@
   "notLessThan6Symbols": "Не менше 6 символів",
   "passwordIsNotConfirm": "Паролі не збігаються",
   "enterPassword": "Введіть пароль",
-  "enterEmail": "Введіть email"
+  "enterEmail": "Введіть email",
+
+  "noMoviesFound": "Не знайдено фільмів",
+  "noStudioFouns": "Не знайдено студію",
+  "originalTitle": "Оригінальна назва",
+  "hours": "год",
+  "minutes": "хв",
+  "delete": "Видалити",
+  "errorGettingData": "Неможливо отримати дані",
+  "filters": "Фільтри",
+  "year": "Рік",
+  "apply": "Застосувати",
+  "cancel": "Відмінити"
+
+
+
 }

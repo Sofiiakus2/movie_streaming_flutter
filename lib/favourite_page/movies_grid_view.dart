@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import '../film_serial_pages/film_page/film_page.dart';
 import '../film_serial_pages/serial_page/serial_page.dart';
 import '../models/media_model.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MoviesGridView extends StatelessWidget {
   const MoviesGridView({
@@ -24,7 +25,7 @@ class MoviesGridView extends StatelessWidget {
         } else if (snapshot.hasError) {
           return Center(child: Text('Error: ${snapshot.error}'));
         } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-          return const Center(child: Text('No movies found.'));
+          return Center(child: Text(AppLocalizations.of(context)!.noMoviesFound));
         }
         final allMovies = snapshot.data!;
         return Expanded(

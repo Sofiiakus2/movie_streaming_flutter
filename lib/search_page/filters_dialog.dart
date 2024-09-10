@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:movie_sctreaming/services/filters_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class FiltersDialog extends StatefulWidget {
   const FiltersDialog({super.key});
@@ -49,7 +50,7 @@ class _FiltersDialogState extends State<FiltersDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Text('Фільтри'),
+      title: Text(AppLocalizations.of(context)!.filters),
       titleTextStyle: Theme.of(context).textTheme.titleLarge,
       content: _countries.isEmpty
           ? const Center(child: CircularProgressIndicator())
@@ -59,7 +60,7 @@ class _FiltersDialogState extends State<FiltersDialog> {
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-              'Країна',
+              AppLocalizations.of(context)!.country,
               style: Theme.of(context).textTheme.titleMedium,
             ),
             ..._countries.map((country) {
@@ -83,7 +84,7 @@ class _FiltersDialogState extends State<FiltersDialog> {
               );
             }),
             Text(
-              'Рік',
+              AppLocalizations.of(context)!.year,
               style: Theme.of(context).textTheme.titleMedium,
             ),
             ..._years.map((year) {
@@ -119,7 +120,7 @@ class _FiltersDialogState extends State<FiltersDialog> {
             });
           },
           child: Text(
-            'Застосувати',
+            AppLocalizations.of(context)!.apply,
             style: Theme.of(context).textTheme.headlineSmall,
           ),
         ),
@@ -128,7 +129,7 @@ class _FiltersDialogState extends State<FiltersDialog> {
             Navigator.of(context).pop();
           },
           child: Text(
-            'Скасувати',
+            AppLocalizations.of(context)!.cancel,
             style: Theme.of(context).textTheme.headlineSmall,
           ),
         ),

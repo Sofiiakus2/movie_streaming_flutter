@@ -34,11 +34,11 @@ class _FavouritePageState extends State<FavouritePage> {
       backgroundColor: Color.alphaBlend(
           Colors.white.withOpacity(0.15), Theme.of(context).secondaryHeaderColor),
       body: Container(
-        margin: EdgeInsets.symmetric(horizontal: 10),
+        margin: const EdgeInsets.symmetric(horizontal: 10),
         child: Column(
           children: [
             Container(
-              margin: EdgeInsets.only(top: 30),
+              margin: const EdgeInsets.only(top: 30),
               child: Row(
                 children: [
                   Text(
@@ -90,7 +90,7 @@ class _FavouritePageState extends State<FavouritePage> {
                                     Theme.of(context).secondaryHeaderColor)
                                     : Colors.white54,
                               ),
-                              SizedBox(width: 10),
+                              const SizedBox(width: 10),
                               Text(
                                 types[index],
                                 style: TextStyle(
@@ -114,7 +114,7 @@ class _FavouritePageState extends State<FavouritePage> {
               ),
             ),
             Container(
-              margin: EdgeInsets.only(top: 10, bottom: 20),
+              margin: const EdgeInsets.only(top: 10, bottom: 20),
               child: Row(
                 children: [
                   Text(

@@ -85,7 +85,7 @@ class _SearchPageState extends State<SearchPage> {
                         borderRadius: BorderRadius.circular(30),
                         borderSide: BorderSide.none,
                       ),
-                      contentPadding: EdgeInsets.symmetric(vertical: 15),
+                      contentPadding: const EdgeInsets.symmetric(vertical: 15),
                     ),
                     style: const TextStyle(color: Colors.white),
                     onChanged: (value){

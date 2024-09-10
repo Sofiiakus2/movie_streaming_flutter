@@ -54,5 +54,17 @@
   "notLessThan6Symbols": "Password shouldn't have less than 6 symbols",
   "passwordIsNotConfirm": "Password isn't confirm",
   "enterPassword": "Enter password",
-  "enterEmail": "Enter email"
+  "enterEmail": "Enter email",
+
+  "noMoviesFound": "Movies not found",
+  "noStudioFouns": "Studio not found",
+  "originalTitle": "Original title",
+  "hours": "h",
+  "minutes": "m",
+  "delete": "Delete",
+  "errorGettingData": "Error getting data",
+  "filters": "Filters",
+  "year": "Year",
+  "apply": "Apply",
+  "cancel": "Cancel"
 }

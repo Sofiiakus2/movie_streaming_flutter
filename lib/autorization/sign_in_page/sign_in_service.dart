@@ -2,6 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:movie_sctreaming/models/user_model.dart';
 
+import '../auth_service.dart';
+
 class SignInService{
   static final FirebaseAuth _auth = FirebaseAuth.instance;
   static final FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -28,8 +30,8 @@ class SignInService{
 
   static Future<void> signUp(UserModel newUser) async{
     try{
+      AuthService.saveFirstEnterState();
       UserCredential userCredential = await _auth.createUserWithEmailAndPassword(email: newUser.email, password: newUser.password!);
-
       newUser.id = userCredential.user?.uid;
       updateDisplayName(newUser.name);
       createNewUserInDB(newUser);

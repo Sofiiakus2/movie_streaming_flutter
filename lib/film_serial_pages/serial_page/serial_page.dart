@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:movie_sctreaming/models/season_model.dart';
 import '../../models/media_model.dart';
+import '../trailer_player_page/trailer_player_page.dart';
 import 'details/season_view.dart';
 import 'details/serial_promo_info.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SerialPage extends StatefulWidget {
   const SerialPage({super.key, required this.serial});
@@ -48,8 +50,26 @@ class _SerialPageState extends State<SerialPage> {
                       ),
                     ),
                   ),
+
+                  SerialPromoInfo(widget: widget),
+                  Center(
+                      child: IconButton(
+                        icon: const Icon(
+                          Icons.play_arrow,
+                          size: 100,
+                        ),
+                        onPressed: (){
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return TrailerPlayerPage(url: widget.serial.trailer_url);
+                            },
+                          );
+                        },
+                      )
+                  ),
                   Positioned(
-                    top: 10,
+                      top: 10,
                       right: 10,
                       child: IconButton(
                         icon: const Icon(
@@ -59,15 +79,14 @@ class _SerialPageState extends State<SerialPage> {
                         ),
                         onPressed: () {  },
                       )),
-                  SerialPromoInfo(widget: widget),
                 ],
               ),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                Text('Рейтинг: ${widget.serial.vote_average.toString()}', style: Theme.of(context).textTheme.titleMedium),
-                Text('Голосів: ${widget.serial.vote_count.toString()}', style: Theme.of(context).textTheme.titleMedium),
+                Text('${AppLocalizations.of(context)!.rating}: ${widget.serial.vote_average.toString()}', style: Theme.of(context).textTheme.titleMedium),
+                Text('${AppLocalizations.of(context)!.votes}: ${widget.serial.vote_count.toString()}', style: Theme.of(context).textTheme.titleMedium),
               ],
             ),
             Container(

@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:movie_sctreaming/models/user_model.dart';
 
 class ProfileService{
@@ -17,5 +18,25 @@ class ProfileService{
     }catch(e){
       throw e;
     }
+  }
+
+  static Route createRoute(Widget NextPage) {
+    return PageRouteBuilder(
+      pageBuilder: (context, animation, secondaryAnimation) => NextPage,
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        const begin = Offset(1.0, 0.0); // Починає анімацію з правого боку
+        const end = Offset.zero; // Кінцева позиція
+        const curve = Curves.ease;
+
+        var tween = Tween(begin: begin, end: end).chain(
+            CurveTween(curve: curve));
+        var offsetAnimation = animation.drive(tween);
+
+        return SlideTransition(
+          position: offsetAnimation,
+          child: child,
+        );
+      },
+    );
   }
 }

@@ -1,8 +1,9 @@
 
 import 'package:flutter/material.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../models/genre_model.dart';
 import '../../../services/user_service.dart';
+import '../../trailer_player_page/trailer_player_page.dart';
 import '../serial_page.dart';
 
 class SerialPromoInfo extends StatelessWidget {
@@ -72,6 +73,12 @@ class SerialPromoInfo extends StatelessWidget {
                         height: 45,
                         child: ElevatedButton(
                           onPressed: () {
+                            // showDialog(
+                            //   context: context,
+                            //   builder: (BuildContext context) {
+                            //     return TrailerPlayerPage(url: widget.serial.trailer_url);
+                            //   },
+                            // );
                             // Add functionality here
                           },
                           style: ElevatedButton.styleFrom(
@@ -90,7 +97,7 @@ class SerialPromoInfo extends StatelessWidget {
                                 size: 30,
                               ),
                               Text(
-                                'Відтворити',
+                                AppLocalizations.of(context)!.watch,
                                 style: Theme.of(context).textTheme.titleSmall,
                               ),
                             ],
@@ -106,9 +113,9 @@ class SerialPromoInfo extends StatelessWidget {
                       future: UserService.isInWatchlist(widget.serial.id),
                       builder: (context, snapshot) {
                         if (snapshot.connectionState == ConnectionState.waiting) {
-                          return CircularProgressIndicator();
+                          return const CircularProgressIndicator();
                         } else if (snapshot.hasError) {
-                          return Icon(Icons.error, color: Colors.red);
+                          return const Icon(Icons.error, color: Colors.red);
                         }
                         bool isInWatchlist = snapshot.data ?? false;
                         return Row(
@@ -141,8 +148,8 @@ class SerialPromoInfo extends StatelessWidget {
                                     ),
                                     Text(
                                       isInWatchlist
-                                          ? 'Видалити'
-                                          : 'Зберегти',
+                                          ? AppLocalizations.of(context)!.delete
+                                          : AppLocalizations.of(context)!.save,
                                       style: Theme.of(context).textTheme.titleSmall,
                                     ),
                                   ],

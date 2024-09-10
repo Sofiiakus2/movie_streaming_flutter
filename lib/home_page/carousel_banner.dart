@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:movie_sctreaming/models/media_model.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../film_serial_pages/trailer_player_page/trailer_player_page.dart';
+
 class CarouselBanner extends StatelessWidget {
   const CarouselBanner({super.key});
 
@@ -42,7 +44,12 @@ class CarouselBanner extends StatelessWidget {
                   height: 50,
                   child: ElevatedButton(
                     onPressed: () {
-
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return TrailerPlayerPage(url: newFilms[index].trailer_url);
+                        },
+                      );
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Theme.of(context).primaryColor,

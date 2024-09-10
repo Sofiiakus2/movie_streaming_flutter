@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:movie_sctreaming/film_serial_pages/trailer_player_page/trailer_player_page.dart';
 import 'package:movie_sctreaming/services/user_service.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../models/genre_model.dart';
 import '../film_page.dart';
 
@@ -10,21 +10,23 @@ class FilmPromoInfo extends StatelessWidget {
   const FilmPromoInfo({super.key, required this.widget,});
   final FilmPage widget;
 
-  String formatDuration(String duration) {
-    final parts = duration.split(':');
-    if (parts.length != 2) {
-      return 'Unknown duration';
-    }
-
-    final hours = int.tryParse(parts[0]) ?? 0;
-    final minutes = int.tryParse(parts[1]) ?? 0;
-
-    return '$hours год $minutes хв';
-  }
 
   @override
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
+
+    String formatDuration(String duration) {
+      final parts = duration.split(':');
+      if (parts.length != 2) {
+        return 'Unknown duration';
+      }
+
+      final hours = int.tryParse(parts[0]) ?? 0;
+      final minutes = int.tryParse(parts[1]) ?? 0;
+
+      return '$hours ${AppLocalizations.of(context)!.hours} $minutes ${AppLocalizations.of(context)!.minutes}';
+    }
+
     return  Positioned(
       bottom: 10,
       left: 30,
@@ -84,12 +86,12 @@ class FilmPromoInfo extends StatelessWidget {
                         height: 45,
                         child: ElevatedButton(
                           onPressed: () {
-                            showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return TrailerPlayerPage(url: widget.film.trailer_url);
-                              },
-                            );
+                            // showDialog(
+                            //   context: context,
+                            //   builder: (BuildContext context) {
+                            //     return TrailerPlayerPage(url: widget.film.trailer_url);
+                            //   },
+                            // );
                             // Navigator.push(
                             //   context,
                             //   MaterialPageRoute(builder: (context) => TrailerPlayerPage(url: widget.film.trailer_url,)),
@@ -111,7 +113,7 @@ class FilmPromoInfo extends StatelessWidget {
                                 size: 30,
                               ),
                               Text(
-                                'Відтворити',
+                                AppLocalizations.of(context)!.watch,
                                 style: Theme.of(context).textTheme.titleSmall,
                               ),
                             ],
@@ -162,8 +164,8 @@ class FilmPromoInfo extends StatelessWidget {
                                   ),
                                   Text(
                                     isInWatchlist
-                                      ? 'Видалити'
-                                      : 'Зберегти',
+                                      ? AppLocalizations.of(context)!.delete
+                                      : AppLocalizations.of(context)!.save,
                                     style: Theme.of(context).textTheme.titleSmall,
                                   ),
                                 ],
