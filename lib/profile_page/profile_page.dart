@@ -1,11 +1,11 @@
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:movie_sctreaming/models/user_model.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:movie_sctreaming/profile_page/profile_service.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:movie_sctreaming/profile_page/rules_page/rules_page.dart';
 import 'package:movie_sctreaming/profile_page/settings_page/settings_page.dart';
+import 'package:movie_sctreaming/profile_page/statistics_page/statistics_page.dart';
 import '../autorization/auth_service.dart';
 import '../autorization/log_in_page/log_in_page.dart';
 class ProfilePage extends StatelessWidget {
@@ -26,7 +26,7 @@ class ProfilePage extends StatelessWidget {
           if(snapshot.connectionState == ConnectionState.waiting){
             return const CircularProgressIndicator();
           }
-          UserModel? user = snapshot!.data;
+          UserModel? user = snapshot.data;
           return Container(
             height: screenSize.height,
             width: screenSize.width,
@@ -62,16 +62,12 @@ class ProfilePage extends StatelessWidget {
 
                         ],
                       ),
-                      IconButton(onPressed: (){},
-                          icon: Icon(Icons.edit,
-                            size: 26,
-                            color: Theme.of(context).dialogBackgroundColor,))
                     ],
                   ),
                 ),
                 GestureDetector(
                   onTap: (){
-                    Navigator.of(context).push(ProfileService.createRoute(SettingsPage()));
+                    Navigator.of(context).push(ProfileService.createRoute(const SettingsPage()));
                   },
                   child: Container(
                     margin: const EdgeInsets.only(top: 20),
@@ -88,6 +84,9 @@ class ProfilePage extends StatelessWidget {
                   ),
                 ),
                 GestureDetector(
+                  onTap: (){
+                    Navigator.of(context).push(ProfileService.createRoute(const StatisticsPage()));
+                  },
                   child: Container(
                     margin: const EdgeInsets.only(top: 20),
                     padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -103,6 +102,9 @@ class ProfilePage extends StatelessWidget {
                   ),
                 ),
                 GestureDetector(
+                  onTap: (){
+                    Navigator.of(context).push(ProfileService.createRoute(const RulesPage()));
+                  },
                   child: Container(
                     margin: const EdgeInsets.only(top: 20),
                     padding: const EdgeInsets.symmetric(horizontal: 10),

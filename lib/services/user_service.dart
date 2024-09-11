@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import '../models/media_model.dart';
+import '../models/user_model.dart';
 
 class UserService{
   static final FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -46,4 +47,45 @@ class UserService{
       });
     }
   }
+
+
+  static Future<UserModel?> getCurrentUser() async {
+    try {
+      User? currentUser = _auth.currentUser;
+      if (currentUser == null) {
+        return null;
+      }
+
+      String userId = currentUser.uid;
+      DocumentSnapshot<Map<String, dynamic>> userDoc =
+      await _firestore.collection('users').doc(userId).get();
+
+      if (!userDoc.exists) {
+        return null;
+      }
+
+      Map<String, dynamic>? userData = userDoc.data();
+      if (userData == null) {
+        return null;
+      }
+
+      return UserModel.fromMap(userData, userId);
+    } catch (e) {
+      print('Error fetching user DATA: $e');
+      return null;
+    }
+  }
+
+  static Future<void> updateUser(UserModel user) async {
+    User? currentUser = _auth.currentUser;
+    final userRef = _firestore.collection('users').doc(currentUser?.uid);
+
+    await userRef.update({
+      "name": user.name,
+      "email": user.email,
+      "gender": user.gender ?? '',
+      "date_of_birth":user.date_of_birth,
+    });
+  }
+
 }

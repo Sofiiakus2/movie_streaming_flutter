@@ -23,6 +23,16 @@ class GenreModel{
     };
   }
 
+  factory GenreModel.fromMap(Map<String, dynamic> map){
+    return GenreModel(
+        id: map['id'],
+        name: map['name'],
+        meta_title: map['meta_title'],
+        meta_desc: map['meta_desc'],
+        description: map['description']
+    );
+  }
+
   static String getGenreNames(List<String> genreIds) {
     return genreIds.map((id) {
       final genre = movieGenres.firstWhere(

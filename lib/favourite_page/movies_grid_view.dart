@@ -1,5 +1,4 @@
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../film_serial_pages/film_page/film_page.dart';
@@ -21,11 +20,28 @@ class MoviesGridView extends StatelessWidget {
       future: fetchMovies,
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Center(child: CircularProgressIndicator());
+          return const SizedBox(height: 500,
+              child: Center(child: CircularProgressIndicator()));
         } else if (snapshot.hasError) {
-          return Center(child: Text('Error: ${snapshot.error}'));
+          return SizedBox(
+              height: 500,
+              child: Center(child: Text('Error: ${snapshot.error}')));
         } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-          return Center(child: Text(AppLocalizations.of(context)!.noMoviesFound));
+          return  SizedBox(
+            height: 500,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(Icons.videocam_off_outlined,
+                      size: 60,
+                      color: Theme.of(context).dialogBackgroundColor,
+                    ),
+                    const SizedBox(height: 20,),
+                    Text(AppLocalizations.of(context)!.noMoviesFound),
+                  ],
+                ),
+          );
         }
         final allMovies = snapshot.data!;
         return Expanded(
