@@ -1,8 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:movie_sctreaming/autorization/sign_in_page/sign_in_page.dart';
-import 'package:movie_sctreaming/film_serial_pages/trailer_player_page/trailer_player_page.dart';
 import 'package:movie_sctreaming/splash/splash_screen.dart';
 import 'package:movie_sctreaming/theme/theme.dart';
 
@@ -17,7 +15,7 @@ void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
   await Firebase.initializeApp(
-      options: FirebaseOptions(
+      options: const FirebaseOptions(
           apiKey: 'AIzaSyDta9aQbRJUBiIXuksMJY0a4wHIQhAW_nY',
           appId: '1:259355715309:android:34ad3b1a2963dc58720ee4',
           messagingSenderId: '259355715309',

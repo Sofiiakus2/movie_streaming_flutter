@@ -20,7 +20,7 @@ class UserService{
 
         for (var item in watchlist) {
           if (item['id'] == mediaId) {
-            return true; // Медіа вже в watchlist
+            return true;
           }
         }
       }
@@ -71,8 +71,7 @@ class UserService{
 
       return UserModel.fromMap(userData, userId);
     } catch (e) {
-      print('Error fetching user DATA: $e');
-      return null;
+      rethrow;
     }
   }
 

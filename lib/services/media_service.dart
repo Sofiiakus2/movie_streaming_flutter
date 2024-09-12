@@ -17,9 +17,8 @@ class MediaService {
       }
 
       await batch.commit();
-      print('Movies saved successfully');
     } catch (e) {
-      print('Error saving movies: $e');
+      rethrow;
     }
   }
 
@@ -54,8 +53,7 @@ class MediaService {
 
       return movies;
     } catch (e) {
-      print('Error fetching movies: $e');
-      return [];
+      rethrow;
     }
   }
 

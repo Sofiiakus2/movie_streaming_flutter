@@ -10,7 +10,7 @@ class StudioService {
         await _firestore.collection('studios').doc(studio.id).set(studio.toMap());
       }
     } catch (e) {
-      print('Error saving studios to Firestore: $e');
+      rethrow;
     }
   }
 }

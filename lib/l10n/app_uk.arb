@@ -66,7 +66,12 @@
   "filters": "Фільтри",
   "year": "Рік",
   "apply": "Застосувати",
-  "cancel": "Відмінити"
+  "cancel": "Відмінити",
+
+  "chooseFavGenres": "Оберіть улюблені жанри",
+  "noGenresFound": "Не знайдено жанрів",
+  "continuePage": "Продовжити"
+
 
 
 

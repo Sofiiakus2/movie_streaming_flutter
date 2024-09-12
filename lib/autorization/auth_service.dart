@@ -23,7 +23,7 @@ class AuthService{
       await prefs.remove('isLoggedIn');
       await prefs.remove('userId');
     } catch (e) {
-      print('Error signing out: $e');
+      rethrow;
     }
   }
 

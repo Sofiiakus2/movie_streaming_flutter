@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:movie_sctreaming/models/media_model.dart';
+import 'package:movie_sctreaming/home_page/view_more_page/view_more_page.dart';
 import 'package:movie_sctreaming/services/media_service.dart';
 import 'carousel_banner.dart';
 import 'movie_horizontal_list.dart';
@@ -53,7 +53,12 @@ class _HomePageState extends State<HomePage> {
                           style: Theme.of(context).textTheme.titleMedium,
                         ),
                         TextButton(
-                            onPressed: (){},
+                            onPressed: (){
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => const ViewMorePage()),
+                              );
+                            },
                             child: Row(
                               children: [
                                 Text(

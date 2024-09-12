@@ -36,7 +36,7 @@ class SignInService{
       updateDisplayName(newUser.name);
       createNewUserInDB(newUser);
     }catch(e){
-      print(e);
+      rethrow;
     }
   }
 
@@ -45,12 +45,9 @@ class SignInService{
       User? user = _auth.currentUser;
       if (user != null) {
         await user.updateProfile(displayName: name);
-        print('Display name updated successfully.');
-      } else {
-        print('No user is currently signed in.');
       }
     }catch(e){
-
+        rethrow;
     }
   }
 
@@ -60,9 +57,8 @@ class SignInService{
         'name': newUser.name,
         'email': newUser.email,
       });
-    } catch (e, stackTrace) {
-      print('Error adding user to Firestore: $e');
-      print('Stack trace: $stackTrace');
+    } catch (e) {
+      rethrow;
     }
   }
 }

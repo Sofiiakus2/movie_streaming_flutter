@@ -15,9 +15,8 @@ class GenreService{
         'preferences': genreMaps,
       });
 
-      print('Genres successfully saved to user preferences.');
     } catch (e) {
-      print('Error saving genres to user preferences: $e');
+      rethrow;
     }
   }
 
@@ -36,7 +35,7 @@ class GenreService{
       });
 
     } catch (e) {
-      print('Error saving genres to user preferences: $e');
+      rethrow;
     }
   }
 
@@ -56,7 +55,6 @@ class GenreService{
         if (userData.containsKey('preferences')) {
           List<dynamic> genreMaps = userData['preferences'];
 
-          // Перетворюємо список Map у список GenreModel
           List<GenreModel> genres = genreMaps.map((genreData) {
             return GenreModel(
               id: genreData['id'],
@@ -71,10 +69,9 @@ class GenreService{
         }
       }
 
-      return []; // Якщо жанрів немає або документ не існує, повертаємо порожній список.
-    } catch (e) {
-      print('Error getting genres from user preferences: $e');
       return [];
+    } catch (e) {
+      rethrow;
     }
   }
 
@@ -95,8 +92,7 @@ class GenreService{
 
       return genres;
     } catch (e) {
-      print('Error getting genres from Firestore: $e');
-      return [];
+      rethrow;
     }
   }
 

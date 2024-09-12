@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../models/media_model.dart';
 
@@ -21,8 +20,7 @@ class FiltersService{
 
       return countries.toList();
     } catch (e) {
-      print('Error fetching countries: $e');
-      return [];
+     rethrow;
     }
   }
 
@@ -41,15 +39,14 @@ class FiltersService{
             DateTime releaseDate = DateTime.parse(releaseDateString);
             years.add(releaseDate.year);
           } catch (e) {
-            print('Error parsing date: $releaseDateString');
+            rethrow;
           }
         }
       }
 
       return years.toList()..sort();
     } catch (e) {
-      print('Error fetching years: $e');
-      return [];
+      rethrow;
     }
   }
 
@@ -84,9 +81,7 @@ class FiltersService{
     }).toList();
 
     if (years != null && years.isNotEmpty) {
-      print('Filtering movies by years: $years');
       movies = movies.where((movie) {
-        print('Movie release year: ${movie.release_date.year}');
         return years.contains(movie.release_date.year);
       }).toList();
     }

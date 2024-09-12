@@ -16,7 +16,7 @@ class ProfileService{
 
       return currentUser;
     }catch(e){
-      throw e;
+      rethrow;
     }
   }
 
@@ -24,8 +24,8 @@ class ProfileService{
     return PageRouteBuilder(
       pageBuilder: (context, animation, secondaryAnimation) => NextPage,
       transitionsBuilder: (context, animation, secondaryAnimation, child) {
-        const begin = Offset(1.0, 0.0); // Починає анімацію з правого боку
-        const end = Offset.zero; // Кінцева позиція
+        const begin = Offset(1.0, 0.0);
+        const end = Offset.zero;
         const curve = Curves.ease;
 
         var tween = Tween(begin: begin, end: end).chain(

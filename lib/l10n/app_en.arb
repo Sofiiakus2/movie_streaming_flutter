@@ -66,5 +66,9 @@
   "filters": "Filters",
   "year": "Year",
   "apply": "Apply",
-  "cancel": "Cancel"
+  "cancel": "Cancel",
+
+  "chooseFavGenres": "Choose favourite genres",
+  "noGenresFound": "No genres found",
+  "continuePage": "Continue"
 }

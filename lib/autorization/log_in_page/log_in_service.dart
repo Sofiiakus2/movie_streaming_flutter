@@ -15,8 +15,7 @@ class LogInService{
       
       return true;
     } catch (e) {
-      print('Error signing in: $e');
-      return false;
+      rethrow;
     }
   }
 

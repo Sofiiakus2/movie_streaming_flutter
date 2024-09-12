@@ -37,7 +37,7 @@ class _FiltersDialogState extends State<FiltersDialog> {
         _selectedYears.addAll(savedYears);
       });
     } catch (e) {
-      print('Error loading filters: $e');
+      rethrow;
     }
   }
 

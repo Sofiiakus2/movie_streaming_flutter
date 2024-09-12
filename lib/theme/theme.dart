@@ -19,7 +19,7 @@ final darkTheme = ThemeData(
       seedColor: primaryColor,
       brightness: Brightness.dark,
     ),
-  bottomNavigationBarTheme: BottomNavigationBarThemeData(
+  bottomNavigationBarTheme: const BottomNavigationBarThemeData(
     backgroundColor: dividerColor,
     selectedItemColor: primaryColor,
     unselectedItemColor: Colors.grey,

@@ -11,7 +11,7 @@ class PeopleService {
         await _firestore.collection('people').doc(person.id).set(person.toMap());
       }
     } catch (e) {
-      print('Error saving people to Firestore: $e');
+      rethrow;
     }
   }
 }

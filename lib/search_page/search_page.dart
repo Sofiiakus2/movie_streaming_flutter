@@ -4,10 +4,8 @@ import 'package:movie_sctreaming/models/genre_model.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:movie_sctreaming/services/genre_service.dart';
 
-import '../home_page/movie_horizontal_list.dart';
 import '../models/media_model.dart';
 import '../services/filters_service.dart';
-import '../services/media_service.dart';
 import 'filters_dialog.dart';
 
 class SearchPage extends StatefulWidget {

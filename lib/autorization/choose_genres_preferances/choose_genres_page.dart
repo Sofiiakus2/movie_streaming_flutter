@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:movie_sctreaming/bottom_navigation_bar/bottom_nav_bar.dart';
 import '../../models/genre_model.dart';
 import '../../services/genre_service.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ChooseGenresPage extends StatefulWidget {
   const ChooseGenresPage({super.key});
@@ -11,7 +12,7 @@ class ChooseGenresPage extends StatefulWidget {
 }
 
 class _ChooseGenresPageState extends State<ChooseGenresPage> {
-  List<GenreModel> _selectedGenres = [];
+  final List<GenreModel> _selectedGenres = [];
 
   @override
   Widget build(BuildContext context) {
@@ -30,14 +31,14 @@ class _ChooseGenresPageState extends State<ChooseGenresPage> {
                 alignment: Alignment.topRight,
                 child: TextButton(
                   onPressed: () {
-                    // Skip action
+
                   },
                   child: Text("Skip", style: Theme.of(context).textTheme.labelMedium),
                 ),
               ),
               const SizedBox(height: 10),
               Text(
-                  'Оберіть улюблені жанри',
+                  AppLocalizations.of(context)!.chooseFavGenres,
                   style: Theme.of(context).textTheme.displaySmall
               ),
               const SizedBox(height: 10),
@@ -50,7 +51,9 @@ class _ChooseGenresPageState extends State<ChooseGenresPage> {
                       return const Center(child: CircularProgressIndicator());
                     }
                     if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                      return const Center(child: Text("No genres found."));
+                      return Center(
+                          child: Text(AppLocalizations.of(context)!.noGenresFound)
+                      );
                     }
 
                     final genres = snapshot.data!;
@@ -97,15 +100,15 @@ class _ChooseGenresPageState extends State<ChooseGenresPage> {
                     );
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Theme.of(context).primaryColor, // Continue button color
+                    backgroundColor: Theme.of(context).primaryColor,
                     padding: const EdgeInsets.symmetric(horizontal: 100, vertical: 15),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30),
                     ),
                   ),
-                  child: const Text(
-                    "CONTINUE",
-                    style: TextStyle(
+                  child: Text(
+                    AppLocalizations.of(context)!.continuePage,
+                    style: const TextStyle(
                       color: Colors.white,
                       fontSize: 16,
                       fontWeight: FontWeight.bold,

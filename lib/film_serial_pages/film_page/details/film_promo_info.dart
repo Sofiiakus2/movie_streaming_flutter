@@ -1,6 +1,5 @@
 
 import 'package:flutter/material.dart';
-import 'package:movie_sctreaming/film_serial_pages/trailer_player_page/trailer_player_page.dart';
 import 'package:movie_sctreaming/services/user_service.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../models/genre_model.dart';
@@ -86,16 +85,7 @@ class FilmPromoInfo extends StatelessWidget {
                         height: 45,
                         child: ElevatedButton(
                           onPressed: () {
-                            // showDialog(
-                            //   context: context,
-                            //   builder: (BuildContext context) {
-                            //     return TrailerPlayerPage(url: widget.film.trailer_url);
-                            //   },
-                            // );
-                            // Navigator.push(
-                            //   context,
-                            //   MaterialPageRoute(builder: (context) => TrailerPlayerPage(url: widget.film.trailer_url,)),
-                            // );
+
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Theme.of(context).primaryColor,
@@ -129,9 +119,9 @@ class FilmPromoInfo extends StatelessWidget {
                     future: UserService.isInWatchlist(widget.film.id),
                     builder: (context, snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting) {
-                        return CircularProgressIndicator();
+                        return const CircularProgressIndicator();
                       } else if (snapshot.hasError) {
-                        return Icon(Icons.error, color: Colors.red);
+                        return Icon(Icons.error, color: Theme.of(context).primaryColor);
                       }
                       bool isInWatchlist = snapshot.data ?? false;
                       return Row(

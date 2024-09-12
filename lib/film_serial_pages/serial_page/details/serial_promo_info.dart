@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../models/genre_model.dart';
 import '../../../services/user_service.dart';
-import '../../trailer_player_page/trailer_player_page.dart';
 import '../serial_page.dart';
 
 class SerialPromoInfo extends StatelessWidget {
