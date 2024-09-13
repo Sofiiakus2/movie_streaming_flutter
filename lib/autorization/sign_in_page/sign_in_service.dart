@@ -30,7 +30,6 @@ class SignInService{
 
   static Future<void> signUp(UserModel newUser) async{
     try{
-      AuthService.saveFirstEnterState();
       UserCredential userCredential = await _auth.createUserWithEmailAndPassword(email: newUser.email, password: newUser.password!);
       newUser.id = userCredential.user?.uid;
       updateDisplayName(newUser.name);

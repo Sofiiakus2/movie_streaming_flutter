@@ -10,10 +10,6 @@ class AuthService{
     await prefs.setString('userId', userId);
   }
 
-  static void saveFirstEnterState() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setBool('isFirstIn', true);
-  }
 
   static Future<void> signOut() async {
     try {
@@ -27,11 +23,5 @@ class AuthService{
     }
   }
 
-  static Future<bool> checkIfFirstIn() async{
-    SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    bool isFirstIn = prefs.getBool('isFirstIn') ?? true;
-
-    return isFirstIn;
-  }
 }

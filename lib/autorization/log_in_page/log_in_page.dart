@@ -128,15 +128,15 @@ class _LogInPageState extends State<LogInPage> {
                       onPressed: () async{
                         if(!_isEmailFieldEmpty && !_isPasswordFieldEmpty){
                           if(await LogInService.signInWithEmailAndPassword(emailController.text, passwordController.text)){
-                            if(await AuthService.checkIfFirstIn()){
+                            if(await LogInService.checkPreferences()){
                               Navigator.push(
                                 context,
-                                MaterialPageRoute(builder: (context) => const ChooseGenresPage()),
+                                MaterialPageRoute(builder: (context) => const BottomNavBar()),
                               );
                             }else{
                               Navigator.push(
                                 context,
-                                MaterialPageRoute(builder: (context) => const BottomNavBar()),
+                                MaterialPageRoute(builder: (context) => const ChooseGenresPage()),
                               );
                             }
                           }

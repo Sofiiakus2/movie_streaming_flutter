@@ -72,6 +72,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedIndex,
+        elevation: 0,
         onTap: _onItemTapped,
         items: [
           BottomNavigationBarItem(

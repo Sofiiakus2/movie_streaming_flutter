@@ -5,7 +5,7 @@ import '../../../models/genre_model.dart';
 import '../../../services/user_service.dart';
 import '../serial_page.dart';
 
-class SerialPromoInfo extends StatelessWidget {
+class SerialPromoInfo extends StatefulWidget {
   const SerialPromoInfo({
     super.key,
     required this.widget,
@@ -13,6 +13,11 @@ class SerialPromoInfo extends StatelessWidget {
 
   final SerialPage widget;
 
+  @override
+  State<SerialPromoInfo> createState() => _SerialPromoInfoState();
+}
+
+class _SerialPromoInfoState extends State<SerialPromoInfo> {
   @override
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
@@ -28,14 +33,14 @@ class SerialPromoInfo extends StatelessWidget {
             children: [
               SizedBox(
                 width: screenSize.width/1.5,
-                child: Text(widget.serial.title,
+                child: Text(widget.widget.serial.title,
                   style: Theme.of(context).textTheme.titleLarge,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                   softWrap: true,
                 ),
               ),
-              Text(widget.serial.age,
+              Text(widget.widget.serial.age,
                 style: TextStyle(
                     fontWeight: Theme.of(context).textTheme.titleLarge?.fontWeight,
                     fontSize: Theme.of(context).textTheme.titleLarge?.fontSize,
@@ -50,10 +55,10 @@ class SerialPromoInfo extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(GenreModel.getGenreNames(widget.serial.genres),
+              Text(GenreModel.getGenreNames(widget.widget.serial.genres),
                 style: Theme.of(context).textTheme.titleMedium,
               ),
-              Text('${widget.serial.release_date.year}',
+              Text('${widget.widget.serial.release_date.year}',
                 style: Theme.of(context).textTheme.titleMedium,
               ),
             ],
@@ -109,12 +114,10 @@ class SerialPromoInfo extends StatelessWidget {
                 Container(
                   margin: const EdgeInsets.symmetric(vertical: 15),
                   child: FutureBuilder<bool>(
-                      future: UserService.isInWatchlist(widget.serial.id),
+                      future: UserService.isInWatchlist(widget.widget.serial.id),
                       builder: (context, snapshot) {
                         if (snapshot.connectionState == ConnectionState.waiting) {
                           return const CircularProgressIndicator();
-                        } else if (snapshot.hasError) {
-                          return const Icon(Icons.error, color: Colors.red);
                         }
                         bool isInWatchlist = snapshot.data ?? false;
                         return Row(
@@ -125,10 +128,13 @@ class SerialPromoInfo extends StatelessWidget {
                               child: ElevatedButton(
                                 onPressed: () {
                                   if(isInWatchlist){
-                                    UserService.removeFromWatchlist(widget.serial);
+                                    UserService.removeFromWatchlist(widget.widget.serial);
                                   }else{
-                                    UserService.addToWatchlist(widget.serial);
+                                    UserService.addToWatchlist(widget.widget.serial);
                                   }
+                                  setState(() {
+                                    isInWatchlist = !isInWatchlist;
+                                  });
                                 },
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor: Theme.of(context).dialogBackgroundColor,

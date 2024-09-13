@@ -5,11 +5,15 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../models/genre_model.dart';
 import '../film_page.dart';
 
-class FilmPromoInfo extends StatelessWidget {
+class FilmPromoInfo extends StatefulWidget {
   const FilmPromoInfo({super.key, required this.widget,});
   final FilmPage widget;
 
+  @override
+  State<FilmPromoInfo> createState() => _FilmPromoInfoState();
+}
 
+class _FilmPromoInfoState extends State<FilmPromoInfo> {
   @override
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
@@ -38,14 +42,14 @@ class FilmPromoInfo extends StatelessWidget {
             children: [
               SizedBox(
                 width: screenSize.width/1.5,
-                child: Text(widget.film.title,
+                child: Text(widget.widget.film.title,
                   style: Theme.of(context).textTheme.titleLarge,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                   softWrap: true,
                 ),
               ),
-              Text(widget.film.age,
+              Text(widget.widget.film.age,
                 style: TextStyle(
                     fontWeight: Theme.of(context).textTheme.titleLarge?.fontWeight,
                     fontSize: Theme.of(context).textTheme.titleLarge?.fontSize,
@@ -60,13 +64,13 @@ class FilmPromoInfo extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(GenreModel.getGenreNames(widget.film.genres),
+              Text(GenreModel.getGenreNames(widget.widget.film.genres),
                 style: Theme.of(context).textTheme.titleMedium,
               ),
-              Text('${widget.film.release_date.year}',
+              Text('${widget.widget.film.release_date.year}',
                 style: Theme.of(context).textTheme.titleMedium,
               ),
-              Text(formatDuration(widget.film.general_duration),
+              Text(formatDuration(widget.widget.film.general_duration),
                 style: Theme.of(context).textTheme.titleMedium,
               ),
             ],
@@ -116,12 +120,10 @@ class FilmPromoInfo extends StatelessWidget {
                 Container(
                   margin: const EdgeInsets.symmetric(vertical: 15),
                   child: FutureBuilder<bool>(
-                    future: UserService.isInWatchlist(widget.film.id),
+                    future: UserService.isInWatchlist(widget.widget.film.id),
                     builder: (context, snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting) {
                         return const CircularProgressIndicator();
-                      } else if (snapshot.hasError) {
-                        return Icon(Icons.error, color: Theme.of(context).primaryColor);
                       }
                       bool isInWatchlist = snapshot.data ?? false;
                       return Row(
@@ -132,10 +134,13 @@ class FilmPromoInfo extends StatelessWidget {
                             child: ElevatedButton(
                               onPressed: () {
                                 if(isInWatchlist){
-                                  UserService.removeFromWatchlist(widget.film);
+                                  UserService.removeFromWatchlist(widget.widget.film);
                                 }else{
-                                  UserService.addToWatchlist(widget.film);
+                                  UserService.addToWatchlist(widget.widget.film);
                                 }
+                                setState(() {
+                                  isInWatchlist = !isInWatchlist;
+                                });
                               },
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: Theme.of(context).dialogBackgroundColor,
