@@ -32,7 +32,7 @@ class _SerialPageState extends State<SerialPage> {
                 children: [
                   Positioned.fill(
                     child: Image.network(
-                      widget.serial.posters_url[0],
+                      widget.serial.postersUrl[0],
                       fit: BoxFit.fitWidth,
                     ),
                   ),
@@ -51,7 +51,7 @@ class _SerialPageState extends State<SerialPage> {
                     ),
                   ),
 
-                  SerialPromoInfo(widget: widget),
+                  SerialPromoInfo(serial: widget.serial),
                   Center(
                       child: IconButton(
                         icon: const Icon(
@@ -62,7 +62,7 @@ class _SerialPageState extends State<SerialPage> {
                           showDialog(
                             context: context,
                             builder: (BuildContext context) {
-                              return TrailerPlayerPage(url: widget.serial.trailer_url);
+                              return TrailerPlayerPage(url: widget.serial.trailerUrl);
                             },
                           );
                         },
@@ -85,8 +85,8 @@ class _SerialPageState extends State<SerialPage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                Text('${AppLocalizations.of(context)!.rating}: ${widget.serial.vote_average.toString()}', style: Theme.of(context).textTheme.titleMedium),
-                Text('${AppLocalizations.of(context)!.votes}: ${widget.serial.vote_count.toString()}', style: Theme.of(context).textTheme.titleMedium),
+                Text('${AppLocalizations.of(context)!.rating}: ${widget.serial.voteAverage.toString()}', style: Theme.of(context).textTheme.titleMedium),
+                Text('${AppLocalizations.of(context)!.votes}: ${widget.serial.voteCount.toString()}', style: Theme.of(context).textTheme.titleMedium),
               ],
             ),
             Container(
@@ -104,7 +104,7 @@ class _SerialPageState extends State<SerialPage> {
               ),
             ),
             const SizedBox(height: 10,),
-            SeasonView(seasons: seasons),
+            SeasonView(serial: widget.serial,),
 
           ],
         ),

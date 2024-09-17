@@ -23,7 +23,7 @@ class _FavouritePageState extends State<FavouritePage> {
 
     Future<List<MediaModel>> fetchMovies() {
       if (_selectedIndex == 0) {
-        return MediaService.getMoviesFromDB();
+        return MediaService.getUserWatchStory();
       } else {
         return MediaService.getUserWatchList();
       }

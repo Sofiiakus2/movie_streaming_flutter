@@ -35,7 +35,7 @@ class PeopleInfoGrid extends StatelessWidget {
               child: ClipRRect(
                 borderRadius: const BorderRadius.all(Radius.circular(5)),
                 child: Image.network(
-                  person.poster_url,
+                  person.posterUrl,
                   fit: BoxFit.cover,
                   loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent? loadingProgress) {
                     if (loadingProgress == null) {

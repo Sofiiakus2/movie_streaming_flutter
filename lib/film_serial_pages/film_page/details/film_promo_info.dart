@@ -1,13 +1,15 @@
 
 import 'package:flutter/material.dart';
+import 'package:movie_sctreaming/film_serial_pages/film_page/film_player/film_player_page.dart';
+import 'package:movie_sctreaming/models/media_model.dart';
 import 'package:movie_sctreaming/services/user_service.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../models/genre_model.dart';
 import '../film_page.dart';
 
 class FilmPromoInfo extends StatefulWidget {
-  const FilmPromoInfo({super.key, required this.widget,});
-  final FilmPage widget;
+  const FilmPromoInfo({super.key, required this.film,});
+  final MediaModel film;
 
   @override
   State<FilmPromoInfo> createState() => _FilmPromoInfoState();
@@ -42,14 +44,14 @@ class _FilmPromoInfoState extends State<FilmPromoInfo> {
             children: [
               SizedBox(
                 width: screenSize.width/1.5,
-                child: Text(widget.widget.film.title,
+                child: Text(widget.film.title,
                   style: Theme.of(context).textTheme.titleLarge,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                   softWrap: true,
                 ),
               ),
-              Text(widget.widget.film.age,
+              Text(widget.film.age,
                 style: TextStyle(
                     fontWeight: Theme.of(context).textTheme.titleLarge?.fontWeight,
                     fontSize: Theme.of(context).textTheme.titleLarge?.fontSize,
@@ -64,13 +66,13 @@ class _FilmPromoInfoState extends State<FilmPromoInfo> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(GenreModel.getGenreNames(widget.widget.film.genres),
+              Text(GenreModel.getGenreNames(widget.film.genres),
                 style: Theme.of(context).textTheme.titleMedium,
               ),
-              Text('${widget.widget.film.release_date.year}',
+              Text('${widget.film.releaseDate.year}',
                 style: Theme.of(context).textTheme.titleMedium,
               ),
-              Text(formatDuration(widget.widget.film.general_duration),
+              Text(formatDuration(widget.film.generalDuration),
                 style: Theme.of(context).textTheme.titleMedium,
               ),
             ],
@@ -89,7 +91,11 @@ class _FilmPromoInfoState extends State<FilmPromoInfo> {
                         height: 45,
                         child: ElevatedButton(
                           onPressed: () {
-
+                            UserService.addToWatchStory(widget.film);
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => FilmPlayerPage(film: widget.film)),
+                            );
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Theme.of(context).primaryColor,
@@ -120,7 +126,7 @@ class _FilmPromoInfoState extends State<FilmPromoInfo> {
                 Container(
                   margin: const EdgeInsets.symmetric(vertical: 15),
                   child: FutureBuilder<bool>(
-                    future: UserService.isInWatchlist(widget.widget.film.id),
+                    future: UserService.isInWatchlist(widget.film.id),
                     builder: (context, snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting) {
                         return const CircularProgressIndicator();
@@ -134,9 +140,9 @@ class _FilmPromoInfoState extends State<FilmPromoInfo> {
                             child: ElevatedButton(
                               onPressed: () {
                                 if(isInWatchlist){
-                                  UserService.removeFromWatchlist(widget.widget.film);
+                                  UserService.removeFromWatchlist(widget.film);
                                 }else{
-                                  UserService.addToWatchlist(widget.widget.film);
+                                  UserService.addToWatchlist(widget.film);
                                 }
                                 setState(() {
                                   isInWatchlist = !isInWatchlist;

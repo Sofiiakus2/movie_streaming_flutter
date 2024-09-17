@@ -8,22 +8,22 @@ class UserModel {
   final String name;
   final String email;
   final String? password;
-  final DateTime? date_of_birth;
+  final DateTime? dateOfBirth;
   final String? gender;
-  final String? profile_picture_url;
+  final String? profilePictureUrl;
   final List<MediaModel>? watchlist;
-  final List<MediaModel>? watch_story;
+  final List<MediaModel>? watchStory;
   final List<GenreModel>? preferences;
 
   UserModel({
     this.id,
     required this.name,
     required this.email,
-    this.date_of_birth,
+    this.dateOfBirth,
     this.gender,
-    this.profile_picture_url,
+    this.profilePictureUrl,
     this.watchlist,
-    this.watch_story,
+    this.watchStory,
     this.preferences,
     this.password,
 });
@@ -37,15 +37,15 @@ class UserModel {
       name: data['name'] ?? '',
       email: data['email'] ?? '',
       password: data['password'],
-      date_of_birth: dateTime,
+      dateOfBirth: dateTime,
       gender: data['gender'],
-      profile_picture_url: data['profile_picture_url'],
+      profilePictureUrl: data['profile_picture_url'],
       watchlist: data['watchlist'] != null
           ? (data['watchlist'] as List)
           .map((item) => MediaModel.fromMap(item))
           .toList()
           : null,
-      watch_story: data['watch_story'] != null
+      watchStory: data['watch_story'] != null
           ? (data['watch_story'] as List)
           .map((item) => MediaModel.fromMap(item))
           .toList()
@@ -64,11 +64,11 @@ class UserModel {
       'name': name,
       'email': email,
       'password': password,
-      'date_of_birth': date_of_birth?.toIso8601String(),
+      'date_of_birth': dateOfBirth?.toIso8601String(),
       'gender': gender,
-      'profile_picture_url': profile_picture_url,
+      'profile_picture_url': profilePictureUrl,
       'watchlist': watchlist?.map((item) => item.toMap()).toList(),
-      'watch_story': watch_story?.map((item) => item.toMap()).toList(),
+      'watch_story': watchStory?.map((item) => item.toMap()).toList(),
       'preferences': preferences?.map((item) => item.toMap()).toList(),
     };
   }
@@ -78,6 +78,6 @@ UserModel userExample = UserModel(
   id: '12345',
   name: 'John Doe',
   email: 'johndoe@example.com',
-  date_of_birth: DateTime(1990, 5, 15),
+  dateOfBirth: DateTime(1990, 5, 15),
   gender: 'Male',
 );

@@ -59,8 +59,8 @@ class GenreService{
             return GenreModel(
               id: genreData['id'],
               name: genreData['name'],
-              meta_title: genreData['meta_title'],
-              meta_desc: genreData['meta_desc'],
+              metaTitle: genreData['meta_title'],
+              metaDesc: genreData['meta_desc'],
               description: genreData['description'],
             );
           }).toList();
@@ -84,8 +84,8 @@ class GenreService{
         return GenreModel(
           id: data['id'],
           name: data['name'],
-          meta_title: data['meta_title'],
-          meta_desc: data['meta_desc'],
+          metaTitle: data['meta_title'],
+          metaDesc: data['meta_desc'],
           description: data['description'],
         );
       }).toList();

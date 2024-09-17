@@ -30,7 +30,7 @@ class CarouselBanner extends StatelessWidget {
                 height: screenSize.height / 3,
                 decoration: BoxDecoration(
                   image: DecorationImage(
-                    image: NetworkImage(newFilms[index].backdrop_path),
+                    image: NetworkImage(newFilms[index].backdropPath),
                     fit: BoxFit.cover,
                   ),
                  // borderRadius: BorderRadius.circular(8),
@@ -47,7 +47,7 @@ class CarouselBanner extends StatelessWidget {
                       showDialog(
                         context: context,
                         builder: (BuildContext context) {
-                          return TrailerPlayerPage(url: newFilms[index].trailer_url);
+                          return TrailerPlayerPage(url: newFilms[index].trailerUrl);
                         },
                       );
                     },

@@ -25,15 +25,15 @@ class FilmInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    StudioModel studio = findStudioById(widget.film.studio_id);
+    StudioModel studio = findStudioById(widget.film.studioId);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            Text('${AppLocalizations.of(context)!.rating}: ${widget.film.vote_average.toString()}', style: Theme.of(context).textTheme.titleMedium),
-            Text('${AppLocalizations.of(context)!.votes}: ${widget.film.vote_count.toString()}', style: Theme.of(context).textTheme.titleMedium),
+            Text('${AppLocalizations.of(context)!.rating}: ${widget.film.voteAverage.toString()}', style: Theme.of(context).textTheme.titleMedium),
+            Text('${AppLocalizations.of(context)!.votes}: ${widget.film.voteCount.toString()}', style: Theme.of(context).textTheme.titleMedium),
           ],
         ),
         const SizedBox(height: 20),
@@ -47,7 +47,7 @@ class FilmInfo extends StatelessWidget {
         Text('${AppLocalizations.of(context)!.country}: ${widget.film.country}', style: Theme.of(context).textTheme.titleMedium),
         Text('${AppLocalizations.of(context)!.studio}: ${studio.name}', style: Theme.of(context).textTheme.titleMedium),
         Text('${AppLocalizations.of(context)!.quality}: ${widget.film.quatily}', style: Theme.of(context).textTheme.titleMedium),
-        Text('${AppLocalizations.of(context)!.originalTitle}: ${widget.film.original_title}', style: Theme.of(context).textTheme.titleMedium),
+        Text('${AppLocalizations.of(context)!.originalTitle}: ${widget.film.originalTitle}', style: Theme.of(context).textTheme.titleMedium),
         Text(
           '${AppLocalizations.of(context)!.translations}: ${widget.film.translation.join(', ')}',
           style: Theme.of(context).textTheme.titleMedium,

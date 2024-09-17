@@ -44,8 +44,8 @@ class _SettingsPageState extends State<SettingsPage> {
         nameController.text = user.name;
         emailController.text = user.email;
         _selectedGender = user.gender;
-        _dateOfBirthController.text = user.date_of_birth != null
-            ? DateFormat('dd-MM-yyyy').format(user.date_of_birth!)
+        _dateOfBirthController.text = user.dateOfBirth != null
+            ? DateFormat('dd-MM-yyyy').format(user.dateOfBirth!)
             : '';
       });
     }
@@ -56,7 +56,7 @@ class _SettingsPageState extends State<SettingsPage> {
         name: nameController.text,
         email: emailController.text,
         gender: _selectedGender,
-        date_of_birth: DateFormat('dd-MM-yyyy').parse(_dateOfBirthController.text),
+        dateOfBirth: DateFormat('dd-MM-yyyy').parse(_dateOfBirthController.text),
     );
 
     await UserService.updateUser(userModel);

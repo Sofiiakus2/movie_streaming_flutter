@@ -8,6 +8,16 @@ class UserService{
   static final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   static final FirebaseAuth _auth = FirebaseAuth.instance;
 
+  static Future<void> addToWatchStory(MediaModel media) async {
+    User? currentUser = _auth.currentUser;
+
+    if (currentUser != null) {
+      await _firestore.collection('users').doc(currentUser.uid).update({
+        'watch_story': FieldValue.arrayUnion([media.toMap()]),
+      });
+    }
+  }
+
   static Future<bool> isInWatchlist(String mediaId) async {
     User? currentUser = _auth.currentUser;
 
@@ -83,7 +93,7 @@ class UserService{
       "name": user.name,
       "email": user.email,
       "gender": user.gender ?? '',
-      "date_of_birth":user.date_of_birth,
+      "date_of_birth":user.dateOfBirth,
     });
   }
 

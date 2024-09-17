@@ -56,13 +56,13 @@ class MoviesGridView extends StatelessWidget {
               itemBuilder: (BuildContext context, int index){
                 return GestureDetector(
                   onTap: (){
-                    if (allMovies[index].media_type == "movie") {
+                    if (allMovies[index].mediaType == "movie") {
                       Navigator.push(
                         context,
                         MaterialPageRoute(builder: (context) => FilmPage(film: allMovies[index],)),
                       );
                     }
-                    else if (allMovies[index].media_type == "series") {
+                    else if (allMovies[index].mediaType == "series") {
                       Navigator.push(
                         context,
                         MaterialPageRoute(builder: (context) => SerialPage(serial: allMovies[index],)),
@@ -79,7 +79,7 @@ class MoviesGridView extends StatelessWidget {
                         margin: const EdgeInsets.only(bottom: 5),
                         decoration: BoxDecoration(
                           image: DecorationImage(
-                            image: NetworkImage(allMovies[index].poster_path),
+                            image: NetworkImage(allMovies[index].posterPath),
                             fit: BoxFit.cover,
                           ),
                           borderRadius: BorderRadius.circular(8),

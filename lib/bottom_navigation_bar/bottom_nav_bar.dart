@@ -5,6 +5,9 @@ import 'package:movie_sctreaming/home_page/home_page.dart';
 import 'package:movie_sctreaming/favourite_page/favourite_page.dart';
 import 'package:movie_sctreaming/profile_page/profile_page.dart';
 import 'package:movie_sctreaming/search_page/search_page.dart';
+import 'package:movie_sctreaming/services/media_service.dart';
+
+import '../models/media_model.dart';
 
 
 class BottomNavBar extends StatefulWidget {
@@ -59,7 +62,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
           ),
           FloatingActionButton(
             onPressed: () async {
-
+              //await MediaService.saveMoviesToFirestore(movies);
             },
             backgroundColor: Theme.of(context).primaryColor,
             shape: RoundedRectangleBorder(

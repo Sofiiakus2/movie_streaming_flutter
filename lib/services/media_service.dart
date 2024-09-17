@@ -43,6 +43,27 @@ class MediaService {
     return [];
   }
 
+  static Future<List<MediaModel>> getUserWatchStory() async {
+    User? currentUser = _auth.currentUser;
+
+    if (currentUser != null){
+      DocumentSnapshot userDoc = await _firestore.collection('users').doc(currentUser.uid).get();
+      if (userDoc.exists && userDoc.data() != null){
+        Map<String, dynamic> userData = userDoc.data() as Map<String, dynamic>;
+        if (userData.containsKey('watch_story')){
+          List<dynamic> watchlistData = userData['watch_story'];
+
+          List<MediaModel> watchlist = watchlistData.map((item) {
+            return MediaModel.fromMap(item);
+          }).toList();
+
+          return watchlist.reversed.toList();
+        }
+      }
+    }
+    return [];
+  }
+
   static Future<List<MediaModel>> getMoviesFromDB() async {
     try {
       QuerySnapshot querySnapshot = await _firestore.collection('movies').get();

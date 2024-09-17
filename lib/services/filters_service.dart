@@ -82,7 +82,7 @@ class FiltersService{
 
     if (years != null && years.isNotEmpty) {
       movies = movies.where((movie) {
-        return years.contains(movie.release_date.year);
+        return years.contains(movie.releaseDate.year);
       }).toList();
     }
 

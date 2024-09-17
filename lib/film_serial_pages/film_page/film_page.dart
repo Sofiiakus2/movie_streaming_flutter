@@ -44,7 +44,7 @@ class _FilmPageState extends State<FilmPage> with SingleTickerProviderStateMixin
                   children: [
                     Positioned.fill(
                       child: Image.network(
-                        widget.film.posters_url[0],
+                        widget.film.postersUrl[0],
                         fit: BoxFit.fitWidth,
                       ),
                     ),
@@ -62,7 +62,7 @@ class _FilmPageState extends State<FilmPage> with SingleTickerProviderStateMixin
                         ),
                       ),
                     ),
-                    FilmPromoInfo(widget: widget,),
+                    FilmPromoInfo(film: widget.film,),
                     Positioned(
                         top: 10,
                         right: 10,
@@ -85,7 +85,7 @@ class _FilmPageState extends State<FilmPage> with SingleTickerProviderStateMixin
                           showDialog(
                             context: context,
                             builder: (BuildContext context) {
-                              return TrailerPlayerPage(url: widget.film.trailer_url);
+                              return TrailerPlayerPage(url: widget.film.trailerUrl);
                             },
                           );
                         },
