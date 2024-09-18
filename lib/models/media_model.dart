@@ -1,4 +1,5 @@
 
+import 'package:movie_sctreaming/models/comment_model.dart';
 import 'package:movie_sctreaming/models/season_model.dart';
 import 'package:movie_sctreaming/models/series_model.dart';
 
@@ -33,6 +34,7 @@ class MediaModel{
   final List<String> creators;
   final String studioId;
   final List<SeasonModel>? seasons;
+  final List<CommentModel>? comments;
 
   MediaModel(
   {
@@ -64,6 +66,7 @@ class MediaModel{
     required this.creators,
     required this.studioId,
     this.seasons,
+    this.comments,
   });
 
   Map<String, dynamic> toMap() {

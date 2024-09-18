@@ -85,6 +85,24 @@ class ProfilePage extends StatelessWidget {
                 ),
                 GestureDetector(
                   onTap: (){
+                    //Navigator.of(context).push(ProfileService.createRoute(const SettingsPage()));
+                  },
+                  child: Container(
+                    margin: const EdgeInsets.only(top: 20),
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    width: screenSize.width,
+                    height: 50,
+                    color: Theme.of(context).dividerColor,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text('Підписки', style: Theme.of(context).textTheme.titleMedium,),
+                        const Icon(Icons.navigate_next)                ],
+                    ),
+                  ),
+                ),
+                GestureDetector(
+                  onTap: (){
                     Navigator.of(context).push(ProfileService.createRoute(const StatisticsPage()));
                   },
                   child: Container(
@@ -115,6 +133,24 @@ class ProfilePage extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(AppLocalizations.of(context)!.rules_of_using, style: Theme.of(context).textTheme.titleMedium,),
+                        const Icon(Icons.navigate_next)                ],
+                    ),
+                  ),
+                ),
+                GestureDetector(
+                  onTap: (){
+                   // Navigator.of(context).push(ProfileService.createRoute(const SettingsPage()));
+                  },
+                  child: Container(
+                    margin: const EdgeInsets.only(top: 20),
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    width: screenSize.width,
+                    height: 50,
+                    color: Theme.of(context).dividerColor,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text('Історія сповіщень', style: Theme.of(context).textTheme.titleMedium,),
                         const Icon(Icons.navigate_next)                ],
                     ),
                   ),

@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:uuid/uuid.dart';
 
+import '../models/comment_model.dart';
 import '../models/media_model.dart';
 
 class MediaService {
@@ -78,5 +80,38 @@ class MediaService {
     }
   }
 
+  static Future<void> addCommentToMovie(String movieId, String text) async {
+    try {
+      var uuid = const Uuid();
+      String commentId = uuid.v4();
 
+      CommentModel comment = CommentModel(
+          id: commentId,
+          authorId: _auth.currentUser!.uid,
+          text: text,
+          date: DateTime.now());
+
+      await _firestore.collection('movies').doc(movieId).update({
+        'comments': FieldValue.arrayUnion([comment.toMap()..['id'] = commentId])
+      });
+
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  static Future<void> addMovieToSubscriptions(String movieId) async {
+    try {
+      User? currentUser = _auth.currentUser;
+
+      if (currentUser != null) {
+        await _firestore.collection('users').doc(currentUser.uid).update({
+          'subscriptions': FieldValue.arrayUnion([movieId]),
+        });
+
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

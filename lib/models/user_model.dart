@@ -14,6 +14,7 @@ class UserModel {
   final List<MediaModel>? watchlist;
   final List<MediaModel>? watchStory;
   final List<GenreModel>? preferences;
+  final List<String>? subscriptions;
 
   UserModel({
     this.id,
@@ -26,6 +27,7 @@ class UserModel {
     this.watchStory,
     this.preferences,
     this.password,
+    this.subscriptions,
 });
 
   factory UserModel.fromMap(Map<String, dynamic> data, String id) {

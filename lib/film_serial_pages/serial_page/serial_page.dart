@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movie_sctreaming/models/season_model.dart';
+import 'package:movie_sctreaming/services/media_service.dart';
 import '../../models/media_model.dart';
 import '../trailer_player_page/trailer_player_page.dart';
 import 'details/season_view.dart';
@@ -15,6 +16,7 @@ class SerialPage extends StatefulWidget {
 }
 
 class _SerialPageState extends State<SerialPage> {
+  bool isMoreTapped = false;
 
   @override
   Widget build(BuildContext context) {
@@ -77,8 +79,35 @@ class _SerialPageState extends State<SerialPage> {
                           color: Colors.white,
                           size: 30,
                         ),
-                        onPressed: () {  },
+                        onPressed: () {
+                          setState(() {
+                            isMoreTapped = !isMoreTapped;
+                          });
+                        },
                       )),
+                  if(isMoreTapped)
+                    Positioned(
+                        top: 50,
+                        right: 25,
+                      child: Column(
+                        children: [
+                          Container(
+                            width: 150,
+                            height: 70,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              color: Colors.black.withOpacity(0.6),
+                            ),
+                            child: TextButton(
+                                onPressed: (){
+                                  MediaService.addMovieToSubscriptions(widget.serial.id);
+                                } ,
+                                child: Text('Підписатися на оновлення', style: Theme.of(context).textTheme.titleMedium,)),
+                          )
+                        ],
+                      )
+                  )
+
                 ],
               ),
             ),
