@@ -91,6 +91,9 @@ class UserService{
     User? currentUser = _auth.currentUser;
     final userRef = _firestore.collection('users').doc(currentUser?.uid);
 
+    await currentUser?.updateDisplayName(user.name);
+    await currentUser?.updateEmail(user.email);
+
     await userRef.update({
       "name": user.name,
       "email": user.email,

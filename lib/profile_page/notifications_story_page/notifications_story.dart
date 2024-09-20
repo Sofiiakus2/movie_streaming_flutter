@@ -45,40 +45,48 @@ class NotificationsStory extends StatelessWidget {
                     return ListView.builder(
                       itemCount: notifications.length,
                       itemBuilder: (context, index) {
-                        final notification = notifications[index];
+                        final notification = notifications[notifications.length - 1 - index]; // Зворотний порядок
                         return Container(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(20),
-                            color: Theme.of(context).dividerColor
+                            color: Theme.of(context).dividerColor,
                           ),
+                          margin: const EdgeInsets.only(bottom: 10),
                           child: Container(
-                            margin: const EdgeInsets.all(10),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                 Text("${notification.date.day} ${months[notification.date.month - 1]}"),    
-                                const SizedBox(height: 10,),
-                                Row(
-                                   children: [
-                                     CircleAvatar(
-                                       backgroundColor: Theme.of(context).primaryColor,
-                                       radius: 14,
-                                       child: const Icon(Icons.notifications, color: Colors.white,size: 16,),
-                                     ),
-                                     const SizedBox(width: 15,),
-                                     Text(notification.title, style: Theme.of(context).textTheme.titleMedium,)
-                                   ],
-                                 ),
-                                const SizedBox(height: 10,),
-                                Text(notification.body),
-                                const SizedBox(height: 12,),
+                            margin: const EdgeInsets.all(15),
 
-                          ]
+                            child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text("${notification.date.day} ${months[notification.date.month - 1]}"),
+                                      Text("${notification.date.hour} : ${notification.date.minute}"),
+                                    ],
+                                  ),
+                                  const SizedBox(height: 10,),
+                                  Row(
+                                    children: [
+                                      CircleAvatar(
+                                        backgroundColor: Theme.of(context).primaryColor,
+                                        radius: 14,
+                                        child: const Icon(Icons.notifications, color: Colors.white, size: 16,),
+                                      ),
+                                      const SizedBox(width: 15,),
+                                      Text(notification.title, style: Theme.of(context).textTheme.titleMedium,)
+                                    ],
+                                  ),
+                                  const SizedBox(height: 10,),
+                                  Text(notification.body),
+                                  const SizedBox(height: 12,),
+                                ]
                             ),
                           ),
                         );
                       },
                     );
+
                   }),
             ),
           ],
