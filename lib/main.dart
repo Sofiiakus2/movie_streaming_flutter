@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:movie_sctreaming/services/user_service.dart';
 import 'package:movie_sctreaming/splash/splash_screen.dart';
 import 'package:movie_sctreaming/theme/theme.dart';
 
@@ -34,6 +35,7 @@ void main() async{
           title: message.notification!.title ?? "No title",
           body: message.notification!.body ?? "No body",
       );
+      UserService.saveNotificationToUser(message);
     }
   });
   runApp(const MyApp());

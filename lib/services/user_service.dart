@@ -1,7 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 
 import '../models/media_model.dart';
+import '../models/notification_model.dart';
 import '../models/user_model.dart';
 
 class UserService{
@@ -109,14 +111,57 @@ class UserService{
         await userDoc.update({
           'token': token,
         });
-
-        print('Токен успішно збережено');
-      } else {
-        print('Користувач не авторизований');
       }
     } catch (e) {
-      print('Помилка при збереженні токена: $e');
+        rethrow;
     }
   }
+
+  static Future<void> saveNotificationToUser(RemoteMessage message) async {
+    User? currentUser = FirebaseAuth.instance.currentUser;
+
+    if (currentUser != null) {
+      DocumentReference userDoc = FirebaseFirestore.instance
+          .collection('users')
+          .doc(currentUser.uid);
+
+      Map<String, dynamic> newNotification = {
+        'title': message.notification?.title,
+        'body': message.notification?.body,
+        'date': DateTime.now()
+      };
+
+      await userDoc.update({
+        'notifications': FieldValue.arrayUnion([newNotification])
+      });
+    }
+  }
+
+  static Future<List<CustomNotificationModel>> getNotificationsForUser() async {
+    User? currentUser = FirebaseAuth.instance.currentUser;
+    List<CustomNotificationModel> notifications = [];
+
+    if (currentUser != null) {
+      DocumentReference userDoc = FirebaseFirestore.instance
+          .collection('users')
+          .doc(currentUser.uid);
+
+      DocumentSnapshot userSnapshot = await userDoc.get();
+
+      if (userSnapshot.exists) {
+        List<dynamic> notificationsData = userSnapshot['notifications'] ?? [];
+        notifications = notificationsData.map((notification) {
+          return CustomNotificationModel(
+            title: notification['title'] as String,
+            body: notification['body'] as String,
+            date: (notification['date'] as Timestamp).toDate(),
+          );
+        }).toList();
+      }
+    }
+    return notifications;
+  }
+
+
 
 }

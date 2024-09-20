@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:movie_sctreaming/models/user_model.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:movie_sctreaming/profile_page/notifications_story_page/notifications_story.dart';
 import 'package:movie_sctreaming/profile_page/profile_service.dart';
 import 'package:movie_sctreaming/profile_page/rules_page/rules_page.dart';
 import 'package:movie_sctreaming/profile_page/settings_page/settings_page.dart';
@@ -139,7 +140,7 @@ class ProfilePage extends StatelessWidget {
                 ),
                 GestureDetector(
                   onTap: (){
-                   // Navigator.of(context).push(ProfileService.createRoute(const SettingsPage()));
+                    Navigator.of(context).push(ProfileService.createRoute(const NotificationsStory()));
                   },
                   child: Container(
                     margin: const EdgeInsets.only(top: 20),
