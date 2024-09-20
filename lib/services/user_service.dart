@@ -97,4 +97,26 @@ class UserService{
     });
   }
 
+  static Future<void> saveTokenToUserCollection(String token) async {
+    try {
+      User? currentUser = FirebaseAuth.instance.currentUser;
+
+      if (currentUser != null) {
+        DocumentReference userDoc = FirebaseFirestore.instance
+            .collection('users')
+            .doc(currentUser.uid);
+
+        await userDoc.update({
+          'token': token,
+        });
+
+        print('Токен успішно збережено');
+      } else {
+        print('Користувач не авторизований');
+      }
+    } catch (e) {
+      print('Помилка при збереженні токена: $e');
+    }
+  }
+
 }

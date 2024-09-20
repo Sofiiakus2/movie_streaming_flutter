@@ -1,4 +1,5 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:movie_sctreaming/splash/splash_screen.dart';
@@ -8,7 +9,9 @@ import 'autorization/log_in_page/log_in_page.dart';
 import 'bottom_navigation_bar/bottom_nav_bar.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'notifications/firebase_api.dart';
 import 'l10n/l10n.dart';
+import 'notifications/notification_service.dart';
 
 
 void main() async{
@@ -24,6 +27,15 @@ void main() async{
       )
   );
 
+  await FirebaseApi().initNotifications();
+  FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+    if (message.notification != null){
+      NotificationService.showNotification(
+          title: message.notification!.title ?? "No title",
+          body: message.notification!.body ?? "No body",
+      );
+    }
+  });
   runApp(const MyApp());
 }
 
