@@ -114,4 +114,70 @@ class MediaService {
       rethrow;
     }
   }
+
+  static Future<List<CommentModel>> getMovieComments(String movieId) async{
+    DocumentSnapshot movieDoc = await FirebaseFirestore.instance
+        .collection('movies')
+        .doc(movieId)
+        .get();
+
+    if (movieDoc.exists) {
+      List<dynamic> commentsData = movieDoc['comments'] ?? [];
+
+      List<CommentModel> comments = commentsData.map((comment) {
+        return CommentModel.fromMap(comment);
+      }).toList();
+
+      print(comments);
+      return comments;
+    } else {
+      return [];
+    }
+  }
+
+  static Future<void> addReplyToComment(String movieId, String commentId, String replyText) async {
+    DocumentSnapshot movieDoc = await _firestore.collection('movies').doc(movieId).get();
+    var uuid = const Uuid();
+    String replyCommentId = uuid.v4();
+    User? currentUser = _auth.currentUser;
+
+    if (movieDoc.exists) {
+      List<CommentModel> comments = (movieDoc['comments'] as List)
+          .map((commentData) => CommentModel.fromMap(commentData))
+          .toList();
+      for(CommentModel comment in comments){
+        if(comment.id == commentId){
+          CommentModel newReply = CommentModel(
+            id: replyCommentId,
+            authorId: currentUser!.uid,
+            text: replyText,
+            date: DateTime.now(),
+            answers: [],
+          );
+
+          List<CommentModel> existingReplies = comment.answers ?? [];
+          existingReplies.add(newReply);
+
+          await _firestore.collection('movies').doc(movieId).update({
+            'comments': comments.map((c) {
+              if (c.id == commentId) {
+                return {
+                  ...c.toMap(),
+                  'answers': existingReplies.map((reply) => reply.toMap()).toList(),
+                };
+              }
+              return c.toMap();
+            }).toList(),
+          });
+          return;
+
+        }
+      }
+
+
+
+    } else {
+      throw Exception('Movie not found');
+    }
+  }
 }

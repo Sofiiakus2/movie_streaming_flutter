@@ -165,6 +165,23 @@ class UserService{
     return notifications;
   }
 
+  static Future<UserModel?> getUserById(String userId) async {
+    try {
+      DocumentSnapshot userSnapshot = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(userId)
+          .get();
 
+      if (userSnapshot.exists) {
+        Map<String, dynamic> data = userSnapshot.data() as Map<String, dynamic>;
+        return UserModel.fromMap(data, userId);
+      } else {
+        return null;
+      }
+    } catch (e) {
+      print('Error getting user by ID: $e');
+      return null;
+    }
+  }
 
 }

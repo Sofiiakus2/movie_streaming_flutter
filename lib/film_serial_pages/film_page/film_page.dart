@@ -1,11 +1,14 @@
 
 import 'package:flutter/material.dart';
+import 'package:movie_sctreaming/film_serial_pages/comments_block/comments_block.dart';
 import 'package:movie_sctreaming/models/comment_model.dart';
 import 'package:movie_sctreaming/models/media_model.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:movie_sctreaming/services/user_service.dart';
 import '../../bottom_navigation_bar/bottom_nav_bar.dart';
 import '../../home_page/movie_horizontal_list.dart';
 import '../../models/genre_model.dart';
+import '../../models/user_model.dart';
 import '../../services/media_service.dart';
 import '../trailer_player_page/trailer_player_page.dart';
 import 'details/film_info.dart';
@@ -21,15 +24,12 @@ class FilmPage extends StatefulWidget {
 
 class _FilmPageState extends State<FilmPage> with SingleTickerProviderStateMixin {
   bool _isCollapsed = true;
-  TextEditingController sendCommentController = TextEditingController();
 
   void _toggleCollapse() {
     setState(() {
       _isCollapsed = !_isCollapsed;
     });
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -128,60 +128,8 @@ class _FilmPageState extends State<FilmPage> with SingleTickerProviderStateMixin
                   ),
                 ),
               ),
-              Container(
-                margin: EdgeInsets.symmetric(horizontal: 30),
-               // height: 500,
-                width: screenSize.width,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text('Коментарі', style: Theme.of(context).textTheme.titleMedium),
-                    const SizedBox(height: 10,),
-                    TextField(
-                      controller: sendCommentController,
-                      decoration: InputDecoration(
-                        filled: true,
-                        fillColor: Theme.of(context).dividerColor,
-                        suffixIcon: IconButton(
-                          icon: Icon(
-                            Icons.send,
-                            color: Theme.of(context).dialogBackgroundColor,
-                            size: 22,
-                          ), onPressed: () {
-                              MediaService.addCommentToMovie(widget.film.id, sendCommentController.text);
-                        },
-                        ),
-                        hintText: 'Написати коментар',
-                        hintStyle: Theme.of(context).textTheme.titleSmall,
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(30),
-                          borderSide: BorderSide.none,
-                        ),
-                        contentPadding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
-                      ),
-                      style: const TextStyle(color: Colors.white),
-                    ),
-                    const SizedBox(height: 15,),
-                  ],
-                ),
-              )
-              // SizedBox(
-              //     height: 350,
-              //     child: Column(
-              //       crossAxisAlignment: CrossAxisAlignment.start,
-              //       children: [
-              //         Container(
-              //           margin: const EdgeInsets.only(top: 20, left: 20, right: 20, bottom: 10),
-              //           child: Text(
-              //             AppLocalizations.of(context)!.similar,
-              //             style: Theme.of(context).textTheme.titleMedium,
-              //           ),
-              //         ),
-              //         MovieHorizontalList(fetchMovies: MediaService.getMoviesFromDB()),
-              //
-              //       ],
-              //     )
-              // ),
+             CommentsBlock(film: widget.film),
+
             ],
           ),
         ),

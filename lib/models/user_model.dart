@@ -60,7 +60,6 @@ class UserModel {
     );
   }
 
-  // Конвертація UserModel в Map для Firestore
   Map<String, dynamic> toMap() {
     return {
       'name': name,

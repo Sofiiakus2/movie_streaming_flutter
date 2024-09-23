@@ -45,7 +45,7 @@ class NotificationsStory extends StatelessWidget {
                     return ListView.builder(
                       itemCount: notifications.length,
                       itemBuilder: (context, index) {
-                        final notification = notifications[notifications.length - 1 - index]; // Зворотний порядок
+                        final notification = notifications[notifications.length - 1 - index];
                         return Container(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(20),
