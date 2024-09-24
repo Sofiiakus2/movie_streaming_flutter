@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:movie_sctreaming/notifications/comments_notification_service.dart';
+import 'package:movie_sctreaming/token_repository.dart';
 
 import '../../models/comment_model.dart';
 import '../../models/media_model.dart';
@@ -17,6 +19,7 @@ class CommentsBlock extends StatefulWidget {
 class _CommentsBlockState extends State<CommentsBlock> {
   bool isLoadingComments = true;
   TextEditingController sendCommentController = TextEditingController();
+  late String repliedUserId;
   List<CommentModel> comments = [];
 
   late CommentModel replyComment;
@@ -65,7 +68,6 @@ class _CommentsBlockState extends State<CommentsBlock> {
                 title: const Text('Поскаржитися', style: TextStyle(color: Colors.white)),
                 onTap: () {
                   Navigator.pop(context);
-                  // Handle "Поскаржитися" action
                 },
               ),
               ListTile(
@@ -98,6 +100,8 @@ class _CommentsBlockState extends State<CommentsBlock> {
     if (commentText.isNotEmpty) {
       if(isReply){
         await MediaService.addReplyToComment(widget.film.id, replyComment.id!, sendCommentController.text, );
+        String token = await TokenRepository.getTokenFromUser(repliedUserId);
+        CommentsNotificationService.sendPushNotification(token, "Вам відповіли на коментар", sendCommentController.text);
         setState(() {
           isReply = false;
         });
@@ -140,7 +144,7 @@ class _CommentsBlockState extends State<CommentsBlock> {
                       child: Text('Error: ${userSnapshot.error}'),
                     );
                   }
-
+                  repliedUserId = comment.authorId;
                   String? userName = userSnapshot.data;
                   if( userName==null){
                     return Container();
@@ -163,7 +167,7 @@ class _CommentsBlockState extends State<CommentsBlock> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    userName!,
+                                    userName,
                                     style: Theme.of(context).textTheme.titleMedium,
                                   ),
                                   Text(comment.text),
@@ -173,7 +177,7 @@ class _CommentsBlockState extends State<CommentsBlock> {
                             //  const Expanded(child: SizedBox(),),
                             IconButton(
                                 onPressed: (){
-                                  _showCommentActions(context, comment, userName!);
+                                  _showCommentActions(context, comment, userName);
                                 },
                                 icon: const Icon(Icons.more_vert))
                           ],
@@ -208,8 +212,7 @@ class _CommentsBlockState extends State<CommentsBlock> {
                                               crossAxisAlignment: CrossAxisAlignment.start,
                                               children: [
                                                 Text(
-                                                  replyName!, // Assuming you have a way to get the username from the authorId
-                                                  //style: Theme.of(context).textTheme.bodyText?.copyWith(fontWeight: FontWeight.bold),
+                                                  replyName,
                                                 ),
                                                 Text(reply.text),
                                               ],
@@ -217,7 +220,7 @@ class _CommentsBlockState extends State<CommentsBlock> {
                                           ),
                                           IconButton(
                                             onPressed: () {
-                                              _showCommentActions(context, reply, reply.authorId); // Handle reply actions
+                                              _showCommentActions(context, reply, reply.authorId);
                                             },
                                             icon: const Icon(Icons.more_vert, size: 16),
                                           ),
@@ -276,7 +279,7 @@ class _CommentsBlockState extends State<CommentsBlock> {
                       color: Theme.of(context).dialogBackgroundColor,
                       size: 22,
                     ),
-                    onPressed: _addComment, // Trigger the add comment function
+                    onPressed: _addComment,
                   ),
                   hintText: isReply
                       ?'Відповісти $replyUsername'

@@ -102,23 +102,6 @@ class UserService{
     });
   }
 
-  static Future<void> saveTokenToUserCollection(String token) async {
-    try {
-      User? currentUser = FirebaseAuth.instance.currentUser;
-
-      if (currentUser != null) {
-        DocumentReference userDoc = FirebaseFirestore.instance
-            .collection('users')
-            .doc(currentUser.uid);
-
-        await userDoc.update({
-          'token': token,
-        });
-      }
-    } catch (e) {
-        rethrow;
-    }
-  }
 
   static Future<void> saveNotificationToUser(RemoteMessage message) async {
     User? currentUser = FirebaseAuth.instance.currentUser;
@@ -179,8 +162,7 @@ class UserService{
         return null;
       }
     } catch (e) {
-      print('Error getting user by ID: $e');
-      return null;
+      rethrow;
     }
   }
 
