@@ -118,7 +118,7 @@ class _FilmPlayerPageState extends State<FilmPlayerPage> {
                           ),
                         ),
                         IconButton(
-                          icon: Icon(
+                          icon: const Icon(
                             Icons.settings,
                             color: Colors.white,
                           ),

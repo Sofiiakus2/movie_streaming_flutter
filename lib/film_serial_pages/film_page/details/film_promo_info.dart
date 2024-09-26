@@ -5,7 +5,7 @@ import 'package:movie_sctreaming/models/media_model.dart';
 import 'package:movie_sctreaming/services/user_service.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../models/genre_model.dart';
-import '../film_page.dart';
+
 
 class FilmPromoInfo extends StatefulWidget {
   const FilmPromoInfo({super.key, required this.film,});
@@ -23,7 +23,7 @@ class _FilmPromoInfoState extends State<FilmPromoInfo> {
     String formatDuration(String duration) {
       final parts = duration.split(':');
       if (parts.length != 2) {
-        return 'Unknown duration';
+        return '';
       }
 
       final hours = int.tryParse(parts[0]) ?? 0;

@@ -150,7 +150,7 @@ class _SettingsPageState extends State<SettingsPage> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'Гендер',
+                              AppLocalizations.of(context)!.gender,
                               style: Theme.of(context).textTheme.titleMedium,
                             ),
                             const SizedBox(height: 5),
@@ -201,7 +201,7 @@ class _SettingsPageState extends State<SettingsPage> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'Дата народження',
+                              AppLocalizations.of(context)!.dateOfBirth,
                               style: Theme.of(context).textTheme.titleMedium,
                             ),
                             const SizedBox(height: 5),
@@ -211,7 +211,7 @@ class _SettingsPageState extends State<SettingsPage> {
                                 readOnly: true,
                                 controller: _dateOfBirthController,
                                 decoration: InputDecoration(
-                                  hintText: 'Оберіть дату',
+                                  hintText: AppLocalizations.of(context)!.chooseDate,
                                   suffixIcon: const Icon(Icons.calendar_today),
                                   enabledBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(35.0),
@@ -251,7 +251,7 @@ class _SettingsPageState extends State<SettingsPage> {
 
                     const SizedBox(height: 30),
                     Text(
-                      'Вподобання',
+                      AppLocalizations.of(context)!.favourite,
                       style: Theme.of(context).textTheme.titleLarge,
                     ),
                     const SizedBox(height: 15),
@@ -262,7 +262,9 @@ class _SettingsPageState extends State<SettingsPage> {
                           return const Center(child: CircularProgressIndicator());
                         }
                         if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                          return const Center(child: Text("No genres found."));
+                          return Center(child: Text(
+                              AppLocalizations.of(context)!.noGenresFound
+                          ));
                         }
 
                         final genres = snapshot.data!;
@@ -319,9 +321,9 @@ class _SettingsPageState extends State<SettingsPage> {
                     borderRadius: BorderRadius.circular(30),
                   ),
                 ),
-                child: const Text(
-                  "Зберегти зміни",
-                  style: TextStyle(
+                child: Text(
+                  AppLocalizations.of(context)!.save,
+                  style: const TextStyle(
                     color: Colors.white,
                     fontSize: 16,
                     fontWeight: FontWeight.bold,

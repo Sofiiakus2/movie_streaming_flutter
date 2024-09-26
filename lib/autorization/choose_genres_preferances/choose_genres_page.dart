@@ -33,7 +33,7 @@ class _ChooseGenresPageState extends State<ChooseGenresPage> {
                   onPressed: () {
 
                   },
-                  child: Text("Skip", style: Theme.of(context).textTheme.labelMedium),
+                  child: Text(AppLocalizations.of(context)!.skip, style: Theme.of(context).textTheme.labelMedium),
                 ),
               ),
               const SizedBox(height: 10),
@@ -123,3 +123,4 @@ class _ChooseGenresPageState extends State<ChooseGenresPage> {
     );
   }
 }
+

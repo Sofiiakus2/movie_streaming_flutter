@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:movie_sctreaming/notifications/comments_notification_service.dart';
 import 'package:movie_sctreaming/token_repository.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../models/comment_model.dart';
 import '../../models/media_model.dart';
 import '../../models/user_model.dart';
@@ -47,7 +47,7 @@ class _CommentsBlockState extends State<CommentsBlock> {
 
   Future<String> _getUserName(String id) async{
     UserModel? user = await UserService.getUserById(id);
-    return user?.name ?? 'Unknown';
+    return user?.name ?? '';
   }
 
   void _showCommentActions(BuildContext context, CommentModel comment, String username) {
@@ -65,14 +65,14 @@ class _CommentsBlockState extends State<CommentsBlock> {
             children: [
               ListTile(
                 leading: const Icon(Icons.report, color: Colors.red),
-                title: const Text('Поскаржитися', style: TextStyle(color: Colors.white)),
+                title: Text(AppLocalizations.of(context)!.report, style: TextStyle(color: Colors.white)),
                 onTap: () {
                   Navigator.pop(context);
                 },
               ),
               ListTile(
                 leading: const Icon(Icons.reply, color: Colors.blue),
-                title: const Text('Відповісти', style: TextStyle(color: Colors.white)),
+                title: Text(AppLocalizations.of(context)!.reply, style: TextStyle(color: Colors.white)),
                 onTap: () {
                   setState(() {
                     isReply = true;
@@ -101,7 +101,7 @@ class _CommentsBlockState extends State<CommentsBlock> {
       if(isReply){
         await MediaService.addReplyToComment(widget.film.id, replyComment.id!, sendCommentController.text, );
         String token = await TokenRepository.getTokenFromUser(repliedUserId);
-        CommentsNotificationService.sendPushNotification(token, "Вам відповіли на коментар", sendCommentController.text);
+        CommentsNotificationService.sendPushNotification(token, AppLocalizations.of(context)!.respondedToComment, sendCommentController.text);
         setState(() {
           isReply = false;
         });
@@ -122,12 +122,12 @@ class _CommentsBlockState extends State<CommentsBlock> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Коментарі', style: Theme.of(context).textTheme.titleMedium),
+          Text(AppLocalizations.of(context)!.comments, style: Theme.of(context).textTheme.titleMedium),
           const SizedBox(height: 20),
           isLoadingComments
               ? const CircularProgressIndicator()
               : comments.isEmpty
-              ? const Center(child: Text('Немає даних'))
+              ? const Center()
               : ListView.builder(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
@@ -141,7 +141,7 @@ class _CommentsBlockState extends State<CommentsBlock> {
                     return const CircularProgressIndicator();
                   } else if (userSnapshot.hasError) {
                     return Center(
-                      child: Text('Error: ${userSnapshot.error}'),
+                      child: Text('${AppLocalizations.of(context)!.error}: ${userSnapshot.error}'),
                     );
                   }
                   repliedUserId = comment.authorId;
@@ -195,7 +195,7 @@ class _CommentsBlockState extends State<CommentsBlock> {
                                     padding: const EdgeInsets.only(left: 40, top: 10),
                                     child: Container(
                                       decoration: BoxDecoration(
-                                        color: Theme.of(context).dividerColor.withOpacity(0.3), // Light background for replies
+                                        color: Theme.of(context).dividerColor.withOpacity(0.3),
                                         borderRadius: const BorderRadius.all(Radius.circular(10)),
                                       ),
                                       padding: const EdgeInsets.all(10),
@@ -282,8 +282,8 @@ class _CommentsBlockState extends State<CommentsBlock> {
                     onPressed: _addComment,
                   ),
                   hintText: isReply
-                      ?'Відповісти $replyUsername'
-                      :'Написати коментар',
+                      ?'${AppLocalizations.of(context)!.reply} $replyUsername'
+                      :AppLocalizations.of(context)!.writeComment,
                   hintStyle: Theme.of(context).textTheme.titleSmall,
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(30),

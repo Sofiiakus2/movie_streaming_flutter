@@ -1,15 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:movie_sctreaming/film_serial_pages/comments_block/comments_block.dart';
-import 'package:movie_sctreaming/models/comment_model.dart';
 import 'package:movie_sctreaming/models/media_model.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:movie_sctreaming/services/user_service.dart';
-import '../../bottom_navigation_bar/bottom_nav_bar.dart';
-import '../../home_page/movie_horizontal_list.dart';
-import '../../models/genre_model.dart';
-import '../../models/user_model.dart';
-import '../../services/media_service.dart';
 import '../trailer_player_page/trailer_player_page.dart';
 import 'details/film_info.dart';
 import 'details/film_promo_info.dart';
@@ -65,17 +57,17 @@ class _FilmPageState extends State<FilmPage> with SingleTickerProviderStateMixin
                       ),
                     ),
                     FilmPromoInfo(film: widget.film,),
-                    Positioned(
-                        top: 10,
-                        right: 10,
-                        child: IconButton(
-                          icon: const Icon(
-                            Icons.more_vert,
-                            color: Colors.white,
-                            size: 30,
-                          ),
-                          onPressed: () {  },
-                        )),
+                    // Positioned(
+                    //     top: 10,
+                    //     right: 10,
+                    //     child: IconButton(
+                    //       icon: const Icon(
+                    //         Icons.more_vert,
+                    //         color: Colors.white,
+                    //         size: 30,
+                    //       ),
+                    //       onPressed: () {  },
+                    //     )),
                     Center(
                       child: IconButton(
                         icon: Icon(

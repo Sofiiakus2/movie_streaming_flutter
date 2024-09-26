@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:movie_sctreaming/services/user_service.dart';
 import '../../models/media_model.dart';
 import '../../services/media_service.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SubscriptionsPage extends StatelessWidget {
   const SubscriptionsPage({super.key});
@@ -17,7 +18,7 @@ class SubscriptionsPage extends StatelessWidget {
         child: Column(
           children: [
             Text(
-              'Керування підписками',
+              AppLocalizations.of(context)!.subscriptions,
               style: Theme.of(context).textTheme.displaySmall,
             ),
             const SizedBox(height: 30),
@@ -28,11 +29,11 @@ class SubscriptionsPage extends StatelessWidget {
                   return const CircularProgressIndicator();
                 } else if (snapshot.hasError) {
                   return Center(
-                    child: Text('Error: ${snapshot.error}'),
+                    child: Text('${AppLocalizations.of(context)!.error}: ${snapshot.error}'),
                   );
                 } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                  return const Center(
-                    child: Text('Ви ще не підписалися на оновлення серіалів'),
+                  return Center(
+                    child: Text(AppLocalizations.of(context)!.noSubscriptionsFound),
                   );
                 }
 
@@ -64,14 +65,14 @@ class SubscriptionsPage extends StatelessWidget {
                                   style: Theme.of(context).textTheme.titleMedium,
                                 ),
                                 Text(
-                                  '${media.seasons!.length.toString()} сезони'
+                                  '${media.seasons!.length.toString()} ${AppLocalizations.of(context)!.seasons}'
                                 ),
-                                Text(
+                                const Text(
                                     'Очікується: 2 сезон 12 серія'
                                 ),
                                 TextButton(
                                     onPressed: (){},
-                                    child: Text('Відписатися',
+                                    child: Text(AppLocalizations.of(context)!.unfollow,
                                       style: Theme.of(context).textTheme.headlineSmall,
                                     )),
                               ],

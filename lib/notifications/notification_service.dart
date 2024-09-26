@@ -12,7 +12,7 @@ class NotificationService{
           channelKey: 'basic_channel',
           channelName: 'Basic Notification',
           channelDescription: 'Notification channel for basic test',
-          defaultColor: Color(0xFFCB395C),
+          defaultColor: const Color(0xFFCB395C),
           ledColor: Colors.white,
           importance: NotificationImportance.Max,
           channelShowBadge: true,

@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:movie_sctreaming/film_serial_pages/film_page/film_page.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../film_serial_pages/serial_page/serial_page.dart';
 import '../models/media_model.dart';
 
@@ -21,9 +21,9 @@ class MovieHorizontalList extends StatelessWidget {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(child: CircularProgressIndicator());
         } else if (snapshot.hasError) {
-          return Center(child: Text('Error: ${snapshot.error}'));
+          return Center(child: Text('${AppLocalizations.of(context)!.error}: ${snapshot.error}'));
         } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-          return const Center(child: Text('No movies found.'));
+          return const Center();
         }
         final allMovies = snapshot.data!;
         return SizedBox(

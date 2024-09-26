@@ -70,5 +70,37 @@
 
   "chooseFavGenres": "Choose favourite genres",
   "noGenresFound": "No genres found",
-  "continuePage": "Continue"
+  "continuePage": "Continue",
+
+  "skip" : "Skip",
+  "error": "Error",
+  "report": "Report",
+  "reply": "Reply",
+  "respondedToComment": "Your comment has been answered",
+  "comments": "Comments",
+  "writeComment": "Comment",
+  "next": "Next",
+  "follow": "Follow",
+  "january": "January",
+  "february": "February",
+  "march": "March",
+  "april": "April",
+  "may": "May",
+  "june": "June",
+  "july": "July",
+  "august": "August",
+  "september": "September",
+  "october": "October",
+  "november": "November",
+  "december": "December",
+
+  "notificationStory": "Notification story",
+  "gender": "Gender",
+  "dateOfBirth": "Date of birth",
+  "chooseDate": "Choose date",
+  "favourite": "Favourite",
+  "subscriptions": "Subscriptions",
+  "noSubscriptionsFound": "No subscriptions found",
+  "seasons": "Seasons",
+  "unfollow": "Unfollow"
 }

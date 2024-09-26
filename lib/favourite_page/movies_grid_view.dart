@@ -25,7 +25,7 @@ class MoviesGridView extends StatelessWidget {
         } else if (snapshot.hasError) {
           return SizedBox(
               height: 500,
-              child: Center(child: Text('Error: ${snapshot.error}')));
+              child: Center(child: Text('${AppLocalizations.of(context)!.error}: ${snapshot.error}')));
         } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
           return  SizedBox(
             height: 500,

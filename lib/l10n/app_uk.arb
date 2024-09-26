@@ -70,9 +70,39 @@
 
   "chooseFavGenres": "Оберіть улюблені жанри",
   "noGenresFound": "Не знайдено жанрів",
-  "continuePage": "Продовжити"
+  "continuePage": "Продовжити",
 
+  "skip" : "Пропустити",
+  "error": "Помилка",
+  "report": "Поскаржитися",
+  "reply": "Відповісти",
+  "respondedToComment": "Вам відповіли на коментар",
+  "comments": "Коментарі",
+  "writeComment": "Написати коментар",
+  "next": "Наступна серія",
+  "follow": "Слідкувати",
+  "january": "Січня",
+  "february": "Лютого",
+  "march": "Березня",
+  "april": "Квітня",
+  "may": "Травня",
+  "june": "Червня",
+  "july": "Липня",
+  "august": "Серпня",
+  "september": "Вересня",
+  "october": "Жовтня",
+  "november": "Листопада",
+  "december": "Грудня",
 
+  "notificationStory": "Історія сповіщень",
+  "gender": "Гендер",
+  "dateOfBirth": "Дата народження",
+  "chooseDate": "Оберіть дату",
+  "favourite": "Вподобання",
+  "subscriptions": "Підписки",
+  "noSubscriptionsFound": "Ви ще не підписались на оновлення серіалів",
+  "seasons": "Сезони",
+  "unfollow": "Відписатися"
 
 
 }

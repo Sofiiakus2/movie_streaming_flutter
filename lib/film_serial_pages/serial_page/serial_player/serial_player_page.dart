@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:movie_sctreaming/models/season_model.dart';
 import 'package:movie_sctreaming/models/series_model.dart';
 import 'package:video_player/video_player.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SerialPlayerPage extends StatefulWidget {
   const SerialPlayerPage({super.key, required this.season, required this.seria});
@@ -137,7 +138,7 @@ class _SerialPlayerPageState extends State<SerialPlayerPage> {
                           ),
                         ),
                         IconButton(
-                          icon: Icon(
+                          icon: const Icon(
                             Icons.settings,
                             color: Colors.white,
                           ),
@@ -162,7 +163,7 @@ class _SerialPlayerPageState extends State<SerialPlayerPage> {
                               return Stack(
                                 children: [
                                   Container(
-                                    margin: EdgeInsets.only(bottom: 10),
+                                    margin: const EdgeInsets.only(bottom: 10),
                                     width: 200,
                                     height: 100,
                                     child: Image.network(
@@ -206,7 +207,7 @@ class _SerialPlayerPageState extends State<SerialPlayerPage> {
                         child: Row(
                           children: [
                             Text(
-                              'Наступна серія',
+                              AppLocalizations.of(context)!.next,
                               style: Theme.of(context).textTheme.headlineSmall,
                             ),
                             Icon(

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:movie_sctreaming/autorization/auth_service.dart';
 import 'package:movie_sctreaming/autorization/choose_genres_preferances/choose_genres_page.dart';
 import 'package:movie_sctreaming/autorization/log_in_page/log_in_service.dart';
 import 'package:movie_sctreaming/autorization/sign_in_page/sign_in_page.dart';

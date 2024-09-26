@@ -98,7 +98,7 @@ class ProfilePage extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text('Підписки', style: Theme.of(context).textTheme.titleMedium,),
+                        Text(AppLocalizations.of(context)!.subscriptions, style: Theme.of(context).textTheme.titleMedium,),
                         const Icon(Icons.navigate_next)                ],
                     ),
                   ),
@@ -152,7 +152,7 @@ class ProfilePage extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text('Історія сповіщень', style: Theme.of(context).textTheme.titleMedium,),
+                        Text(AppLocalizations.of(context)!.notificationStory, style: Theme.of(context).textTheme.titleMedium,),
                         const Icon(Icons.navigate_next)                ],
                     ),
                   ),

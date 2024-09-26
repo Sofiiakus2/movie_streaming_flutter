@@ -4,7 +4,6 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:movie_sctreaming/models/media_model.dart';
 import '../../../models/genre_model.dart';
 import '../../../services/user_service.dart';
-import '../serial_page.dart';
 import '../serial_player/serial_player_page.dart';
 
 class SerialPromoInfo extends StatefulWidget {

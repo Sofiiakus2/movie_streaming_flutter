@@ -1,7 +1,7 @@
-import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:movie_sctreaming/models/notification_model.dart';
 import 'package:movie_sctreaming/services/user_service.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class NotificationsStory extends StatelessWidget {
   const NotificationsStory({super.key});
@@ -9,8 +9,8 @@ class NotificationsStory extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final List<String> months = [
-      'Січня', 'Лютого', 'Березня', 'Квітня', 'Травня', 'Червня',
-      'Липня', 'Серпня', 'Вересня', 'Жовтня', 'Листопада', 'Грудня'
+      AppLocalizations.of(context)!.january, AppLocalizations.of(context)!.february, AppLocalizations.of(context)!.march, AppLocalizations.of(context)!.april, AppLocalizations.of(context)!.may, AppLocalizations.of(context)!.june,
+    AppLocalizations.of(context)!.july, AppLocalizations.of(context)!.august, AppLocalizations.of(context)!.september, AppLocalizations.of(context)!.october, AppLocalizations.of(context)!.november, AppLocalizations.of(context)!.december
     ];
 
     return Scaffold(
@@ -22,7 +22,7 @@ class NotificationsStory extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              "Історія сповіщень",
+              AppLocalizations.of(context)!.notificationStory,
               style: Theme.of(context).textTheme.displaySmall,
             ),
             const SizedBox(height: 30),
@@ -34,11 +34,11 @@ class NotificationsStory extends StatelessWidget {
                       return const CircularProgressIndicator();
                     } else if (snapshot.hasError) {
                       return Center(
-                        child: Text('Error: ${snapshot.error}'),
+                        child: Text('${AppLocalizations.of(context)!.error}: ${snapshot.error}'),
                       );
                     } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                      return Center(
-                        child: Text('Немає даних'),
+                      return const Center(
+                        child: Text(''),
                       );
                     }
                     final notifications = snapshot.data!;

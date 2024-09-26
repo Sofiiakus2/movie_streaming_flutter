@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:movie_sctreaming/models/season_model.dart';
 import 'package:movie_sctreaming/services/media_service.dart';
 import '../../models/media_model.dart';
 import '../trailer_player_page/trailer_player_page.dart';
@@ -21,7 +20,6 @@ class _SerialPageState extends State<SerialPage> {
   @override
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
-    List<SeasonModel>? seasons = widget.serial.seasons;
     return Scaffold(
       backgroundColor: Colors.black,
       body: SingleChildScrollView(
@@ -102,7 +100,7 @@ class _SerialPageState extends State<SerialPage> {
                                 onPressed: (){
                                   MediaService.addMovieToSubscriptions(widget.serial.id);
                                 } ,
-                                child: Text('Підписатися на оновлення', style: Theme.of(context).textTheme.titleMedium,)),
+                                child: Text(AppLocalizations.of(context)!.follow, style: Theme.of(context).textTheme.titleMedium,)),
                           )
                         ],
                       )
