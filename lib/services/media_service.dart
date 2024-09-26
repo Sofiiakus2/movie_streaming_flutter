@@ -8,6 +8,24 @@ import '../models/media_model.dart';
 class MediaService {
   static final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   static final FirebaseAuth _auth = FirebaseAuth.instance;
+  static Future<MediaModel?> getMovieById(String movieId) async {
+    try {
+      DocumentSnapshot<Map<String, dynamic>> movieSnapshot = await FirebaseFirestore.instance
+          .collection('movies')
+          .doc(movieId)
+          .get();
+
+      if (movieSnapshot.exists && movieSnapshot.data() != null) {
+        Map<String, dynamic> data = movieSnapshot.data()!;
+        return MediaModel.fromMap(data);
+      } else {
+        return null;
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
+
 
   static Future<void> saveMoviesToFirestore(List<MediaModel> movies) async {
     try {

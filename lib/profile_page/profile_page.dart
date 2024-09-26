@@ -7,6 +7,7 @@ import 'package:movie_sctreaming/profile_page/profile_service.dart';
 import 'package:movie_sctreaming/profile_page/rules_page/rules_page.dart';
 import 'package:movie_sctreaming/profile_page/settings_page/settings_page.dart';
 import 'package:movie_sctreaming/profile_page/statistics_page/statistics_page.dart';
+import 'package:movie_sctreaming/profile_page/subscriptions_page/subscriptions_page.dart';
 import '../autorization/auth_service.dart';
 import '../autorization/log_in_page/log_in_page.dart';
 class ProfilePage extends StatelessWidget {
@@ -86,7 +87,7 @@ class ProfilePage extends StatelessWidget {
                 ),
                 GestureDetector(
                   onTap: (){
-                    //Navigator.of(context).push(ProfileService.createRoute(const SettingsPage()));
+                    Navigator.of(context).push(ProfileService.createRoute(const SubscriptionsPage()));
                   },
                   child: Container(
                     margin: const EdgeInsets.only(top: 20),

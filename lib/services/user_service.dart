@@ -60,6 +60,24 @@ class UserService{
     }
   }
 
+  static Future<List<dynamic>> getSubscriptions() async {
+    User? currentUser = _auth.currentUser;
+
+    if (currentUser != null) {
+      DocumentSnapshot<Map<String, dynamic>> userDoc =
+      await _firestore.collection('users').doc(currentUser.uid).get();
+
+      if (userDoc.exists && userDoc.data() != null && userDoc.data()!['subscriptions'] != null) {
+        List<dynamic> subscriptionsData = userDoc.data()!['subscriptions'];
+
+
+        return subscriptionsData;
+      }
+    }
+
+    return [];
+  }
+
 
   static Future<UserModel?> getCurrentUser() async {
     try {
