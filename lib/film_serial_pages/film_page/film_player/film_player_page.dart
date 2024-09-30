@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:movie_sctreaming/autorization/auth_service.dart';
 import 'package:movie_sctreaming/models/media_model.dart';
 import 'package:video_player/video_player.dart';
 
@@ -21,7 +22,9 @@ class _FilmPlayerPageState extends State<FilmPlayerPage> {
   @override
   void initState() {
     super.initState();
-
+    print('---------start');
+    AuthService.saveMediaModel(widget.film);
+    print('-------------end');
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.landscapeRight,
       DeviceOrientation.landscapeLeft,
@@ -36,9 +39,16 @@ class _FilmPlayerPageState extends State<FilmPlayerPage> {
         videoPlayerController.play();
         isPlaying = false;
         videoPlayerController.addListener(() {
-          setState(() {
-            currentPosition = videoPlayerController.value.position;
-          });
+          if (mounted) {
+            setState(() {
+              currentPosition = videoPlayerController.value.position;
+
+              // if (currentPosition >= videoLength) {
+              //   print('----------');
+              //   AuthService.removeMediaModel();
+              // }
+            });
+          }
         });
       });
 

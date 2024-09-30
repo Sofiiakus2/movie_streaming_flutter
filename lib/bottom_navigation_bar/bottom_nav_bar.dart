@@ -1,10 +1,13 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:movie_sctreaming/autorization/auth_service.dart';
+import 'package:movie_sctreaming/film_serial_pages/film_page/film_player/film_player_page.dart';
 import 'package:movie_sctreaming/home_page/home_page.dart';
 import 'package:movie_sctreaming/favourite_page/favourite_page.dart';
 import 'package:movie_sctreaming/profile_page/profile_page.dart';
 import 'package:movie_sctreaming/search_page/search_page.dart';
+import '../models/media_model.dart';
 
 
 
@@ -60,8 +63,22 @@ class _BottomNavBarState extends State<BottomNavBar> {
           ),
           FloatingActionButton(
             onPressed: () async {
-              //await MediaService.saveMoviesToFirestore(movies);
+              MediaModel? media = await AuthService.getMediaModel();
+              if (media != null) {
+                if (media.mediaType == 'movie') {
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return FilmPlayerPage(film: media);
+                    },
+                  );
+                }
+               // FloatingFunc(media: media);
+              } else {
+                print('MediaModel is null');
+              }
             },
+
             backgroundColor: Theme.of(context).primaryColor,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(50.0),

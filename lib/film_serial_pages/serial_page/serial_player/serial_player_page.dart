@@ -5,6 +5,8 @@ import 'package:movie_sctreaming/models/series_model.dart';
 import 'package:video_player/video_player.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../../../autorization/auth_service.dart';
+
 class SerialPlayerPage extends StatefulWidget {
   const SerialPlayerPage({super.key, required this.season, required this.seria});
   final SeasonModel season;
@@ -25,7 +27,6 @@ class _SerialPlayerPageState extends State<SerialPlayerPage> {
   @override
   void initState() {
     super.initState();
-
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.landscapeRight,
       DeviceOrientation.landscapeLeft,
