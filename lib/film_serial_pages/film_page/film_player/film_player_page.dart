@@ -22,9 +22,7 @@ class _FilmPlayerPageState extends State<FilmPlayerPage> {
   @override
   void initState() {
     super.initState();
-    print('---------start');
     AuthService.saveMediaModel(widget.film);
-    print('-------------end');
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.landscapeRight,
       DeviceOrientation.landscapeLeft,
@@ -42,11 +40,9 @@ class _FilmPlayerPageState extends State<FilmPlayerPage> {
           if (mounted) {
             setState(() {
               currentPosition = videoPlayerController.value.position;
-
-              // if (currentPosition >= videoLength) {
-              //   print('----------');
-              //   AuthService.removeMediaModel();
-              // }
+              if (currentPosition >= videoLength) {
+                AuthService.removeMediaModel();
+              }
             });
           }
         });

@@ -3,8 +3,11 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:movie_sctreaming/autorization/auth_service.dart';
 import 'package:movie_sctreaming/film_serial_pages/film_page/film_player/film_player_page.dart';
+import 'package:movie_sctreaming/film_serial_pages/serial_page/serial_player/serial_player_page.dart';
 import 'package:movie_sctreaming/home_page/home_page.dart';
 import 'package:movie_sctreaming/favourite_page/favourite_page.dart';
+import 'package:movie_sctreaming/models/season_model.dart';
+import 'package:movie_sctreaming/models/series_model.dart';
 import 'package:movie_sctreaming/profile_page/profile_page.dart';
 import 'package:movie_sctreaming/search_page/search_page.dart';
 import '../models/media_model.dart';
@@ -73,9 +76,17 @@ class _BottomNavBarState extends State<BottomNavBar> {
                     },
                   );
                 }
-               // FloatingFunc(media: media);
-              } else {
-                print('MediaModel is null');
+              } else{
+                SeasonModel? season = await AuthService.getSerialSeason();
+                SeriesModel? seria = await AuthService.getSerialSeria();
+                if (season != null && seria != null){
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return SerialPlayerPage(season: season, seria: seria);
+                    },
+                  );
+                }
               }
             },
 

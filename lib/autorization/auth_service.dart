@@ -1,6 +1,8 @@
 import 'dart:convert';
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:movie_sctreaming/models/season_model.dart';
+import 'package:movie_sctreaming/models/series_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../models/media_model.dart';
@@ -22,6 +24,16 @@ class AuthService{
     await prefs.setString('mediaModel', mediaJson);
   }
 
+  static Future<void> saveSerial(SeasonModel season, SeriesModel seria) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    String mediaJson = jsonEncode(season.toMap());
+    String seriaJson = jsonEncode(seria.toMap());
+
+    await prefs.setString('seasonModel', mediaJson);
+    await prefs.setString('seriaModel', seriaJson);
+  }
+
   static Future<MediaModel?> getMediaModel() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
@@ -35,10 +47,43 @@ class AuthService{
     return null;
   }
 
+  static Future<SeasonModel?> getSerialSeason() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    String? mediaJson = prefs.getString('seasonModel');
+
+    if (mediaJson != null) {
+      Map<String, dynamic> mediaMap = jsonDecode(mediaJson);
+      return SeasonModel.fromMap(mediaMap);
+    }
+
+    return null;
+  }
+
+  static Future<SeriesModel?> getSerialSeria() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    String? mediaJson = prefs.getString('seriaModel');
+
+    if (mediaJson != null) {
+      Map<String, dynamic> mediaMap = jsonDecode(mediaJson);
+      return SeriesModel.fromMap(mediaMap);
+    }
+
+    return null;
+  }
+
   static Future<void> removeMediaModel() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
     await prefs.remove('mediaModel');
+  }
+
+  static Future<void> removeSerial() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    await prefs.remove('seasonModel');
+    await prefs.remove('seriaModel');
   }
 
 

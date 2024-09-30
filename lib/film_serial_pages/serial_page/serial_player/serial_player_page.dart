@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:movie_sctreaming/autorization/auth_service.dart';
 import 'package:movie_sctreaming/models/season_model.dart';
 import 'package:movie_sctreaming/models/series_model.dart';
 import 'package:video_player/video_player.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import '../../../autorization/auth_service.dart';
 
 class SerialPlayerPage extends StatefulWidget {
   const SerialPlayerPage({super.key, required this.season, required this.seria});
@@ -27,6 +27,7 @@ class _SerialPlayerPageState extends State<SerialPlayerPage> {
   @override
   void initState() {
     super.initState();
+    AuthService.saveSerial(widget.season, widget.seria);
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.landscapeRight,
       DeviceOrientation.landscapeLeft,
@@ -41,9 +42,14 @@ class _SerialPlayerPageState extends State<SerialPlayerPage> {
         videoPlayerController.play();
         isPlaying = false;
         videoPlayerController.addListener(() {
-          setState(() {
-            currentPosition = videoPlayerController.value.position;
-          });
+          if(mounted){
+            setState(() {
+              currentPosition = videoPlayerController.value.position;
+            });
+            if (currentPosition >= videoLength) {
+              AuthService.removeSerial();
+            }
+          }
         });
       });
 
